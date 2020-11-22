@@ -15,7 +15,7 @@
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="4">
-    <widget class="QDateEdit" name="dateEdit"/>
+    <widget class="QDateEdit" name="date_publicacion"/>
    </item>
    <item row="4" column="3">
     <widget class="QLabel" name="label_10">
@@ -25,10 +25,10 @@
     </widget>
    </item>
    <item row="4" column="4">
-    <widget class="QLineEdit" name="lineEdit_5"/>
+    <widget class="QLineEdit" name="edit_encuadernacion"/>
    </item>
    <item row="3" column="4">
-    <widget class="QComboBox" name="comboBox_3"/>
+    <widget class="QComboBox" name="combo_genero"/>
    </item>
    <item row="1" column="3">
     <widget class="QLabel" name="label_5">
@@ -38,10 +38,10 @@
     </widget>
    </item>
    <item row="1" column="4">
-    <widget class="QComboBox" name="comboBox"/>
+    <widget class="QComboBox" name="combo_editorial"/>
    </item>
    <item row="5" column="4">
-    <widget class="QPushButton" name="pushButton">
+    <widget class="QPushButton" name="push_guardar">
      <property name="text">
       <string>Guardar</string>
      </property>
@@ -62,7 +62,7 @@
     </widget>
    </item>
    <item row="4" column="1">
-    <widget class="QLineEdit" name="lineEdit_4"/>
+    <widget class="QLineEdit" name="edit_idioma"/>
    </item>
    <item row="1" column="0">
     <widget class="QLabel" name="label_3">
@@ -79,7 +79,7 @@
     </widget>
    </item>
    <item row="2" column="1">
-    <widget class="QLineEdit" name="lineEdit_3"/>
+    <widget class="QLineEdit" name="edit_isbn"/>
    </item>
    <item row="0" column="0">
     <widget class="QLabel" name="label_2">
@@ -89,17 +89,17 @@
     </widget>
    </item>
    <item row="2" column="4">
-    <widget class="QComboBox" name="comboBox_2"/>
+    <widget class="QComboBox" name="combo_autor"/>
    </item>
    <item row="5" column="3">
-    <widget class="QPushButton" name="pushButton_2">
+    <widget class="QPushButton" name="push_cancelar">
      <property name="text">
       <string>Cancelar</string>
      </property>
     </widget>
    </item>
    <item row="3" column="1">
-    <widget class="QDoubleSpinBox" name="doubleSpinBox"/>
+    <widget class="QDoubleSpinBox" name="spin_precio"/>
    </item>
    <item row="0" column="3">
     <widget class="QLabel" name="label_6">
@@ -123,10 +123,7 @@
     </widget>
    </item>
    <item row="1" column="1">
-    <widget class="QLineEdit" name="lineEdit_2"/>
-   </item>
-   <item row="0" column="1">
-    <widget class="QLineEdit" name="lineEdit"/>
+    <widget class="QLineEdit" name="edit_titulo"/>
    </item>
    <item row="0" column="2">
     <spacer name="horizontalSpacer">
@@ -140,6 +137,9 @@
       </size>
      </property>
     </spacer>
+   </item>
+   <item row="0" column="1">
+    <widget class="QSpinBox" name="spin_codigo"/>
    </item>
   </layout>
  </widget>

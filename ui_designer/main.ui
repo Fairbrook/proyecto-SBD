@@ -18,7 +18,7 @@
     <item row="0" column="0">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>2</number>
+       <number>5</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -26,38 +26,42 @@
        </attribute>
        <layout class="QGridLayout" name="gridLayout_2">
         <item row="0" column="2">
-         <widget class="QPushButton" name="pushButton_2">
+         <widget class="QPushButton" name="push_libro_mostrar">
           <property name="text">
            <string>Mostrar</string>
           </property>
          </widget>
         </item>
-        <item row="0" column="0">
-         <widget class="QLineEdit" name="lineEdit"/>
-        </item>
         <item row="0" column="1">
-         <widget class="QPushButton" name="pushButton">
+         <widget class="QPushButton" name="push_libro_buscar">
           <property name="text">
            <string>Buscar</string>
           </property>
          </widget>
         </item>
+        <item row="2" column="2" colspan="2">
+         <widget class="QPushButton" name="push_libro_eliminar">
+          <property name="text">
+           <string>Eliminar seleccionado</string>
+          </property>
+         </widget>
+        </item>
         <item row="0" column="3">
-         <widget class="QPushButton" name="pushButton_3">
+         <widget class="QPushButton" name="push_libro_nuevo">
           <property name="text">
            <string>Nuevo</string>
           </property>
          </widget>
         </item>
-        <item row="1" column="0" colspan="4">
-         <widget class="QTableView" name="tableView"/>
-        </item>
-        <item row="2" column="2" colspan="2">
-         <widget class="QPushButton" name="pushButton_7">
-          <property name="text">
-           <string>Eliminar seleccionado</string>
+        <item row="0" column="0">
+         <widget class="QLineEdit" name="edit_libro_buscar">
+          <property name="placeholderText">
+           <string>Buscar Libro...</string>
           </property>
          </widget>
+        </item>
+        <item row="1" column="0" colspan="4">
+         <widget class="QTableWidget" name="table_libro"/>
         </item>
        </layout>
       </widget>
@@ -66,42 +70,50 @@
         <string>Autores</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_3">
-        <item row="2" column="0" colspan="5">
-         <widget class="QTableView" name="tableView_2"/>
-        </item>
-        <item row="3" column="3" colspan="2">
-         <widget class="QPushButton" name="pushButton_8">
+        <item row="3" column="2" colspan="2">
+         <widget class="QPushButton" name="push_autor_eliminar">
           <property name="text">
            <string>Eliminar seleccionado</string>
           </property>
          </widget>
         </item>
-        <item row="1" column="0">
-         <widget class="QLineEdit" name="lineEdit_3"/>
-        </item>
         <item row="0" column="0">
-         <widget class="QLineEdit" name="lineEdit_2"/>
-        </item>
-        <item row="1" column="1" colspan="4">
-         <widget class="QPushButton" name="pushButton_5">
-          <property name="text">
-           <string>Guardar</string>
+         <widget class="QLineEdit" name="edit_autor_buscar">
+          <property name="placeholderText">
+           <string>Buscar autor...</string>
           </property>
          </widget>
         </item>
-        <item row="0" column="4">
-         <widget class="QPushButton" name="pushButton_4">
+        <item row="1" column="0">
+         <widget class="QLineEdit" name="edit_autor_guardar">
+          <property name="placeholderText">
+           <string>Nuevo autor...</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="3">
+         <widget class="QPushButton" name="push_autor_mostrar">
           <property name="text">
            <string>Mostrar</string>
           </property>
          </widget>
         </item>
-        <item row="0" column="1" colspan="3">
-         <widget class="QPushButton" name="pushButton_6">
+        <item row="1" column="1" colspan="3">
+         <widget class="QPushButton" name="push_autor_guardar">
+          <property name="text">
+           <string>Guardar</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1" colspan="2">
+         <widget class="QPushButton" name="push_autor_buscar">
           <property name="text">
            <string>Buscar</string>
           </property>
          </widget>
+        </item>
+        <item row="2" column="0" colspan="4">
+         <widget class="QTableWidget" name="table_autor"/>
         </item>
        </layout>
       </widget>
@@ -156,41 +168,49 @@
        </attribute>
        <layout class="QGridLayout" name="gridLayout_5">
         <item row="0" column="0">
-         <widget class="QLineEdit" name="lineEdit_5"/>
+         <widget class="QLineEdit" name="edit_genero_buscar">
+          <property name="placeholderText">
+           <string>Buscar Genero..</string>
+          </property>
+         </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QPushButton" name="pushButton_13">
+         <widget class="QPushButton" name="push_genero_buscar">
           <property name="text">
            <string>Buscar</string>
           </property>
          </widget>
         </item>
+        <item row="3" column="1" colspan="2">
+         <widget class="QPushButton" name="push_genero_eliminar">
+          <property name="text">
+           <string>Eliminar seleccionado</string>
+          </property>
+         </widget>
+        </item>
         <item row="0" column="2">
-         <widget class="QPushButton" name="pushButton_14">
+         <widget class="QPushButton" name="push_genero_mostrar">
           <property name="text">
            <string>Mostrar</string>
           </property>
          </widget>
         </item>
         <item row="1" column="0">
-         <widget class="QLineEdit" name="lineEdit_6"/>
+         <widget class="QLineEdit" name="edit_genero_nuevo">
+          <property name="placeholderText">
+           <string>Nuevo Genero..</string>
+          </property>
+         </widget>
         </item>
         <item row="1" column="1" colspan="2">
-         <widget class="QPushButton" name="pushButton_16">
+         <widget class="QPushButton" name="push_genero_guardar">
           <property name="text">
            <string>Guardar</string>
           </property>
          </widget>
         </item>
         <item row="2" column="0" colspan="3">
-         <widget class="QTableView" name="tableView_4"/>
-        </item>
-        <item row="3" column="1" colspan="2">
-         <widget class="QPushButton" name="pushButton_15">
-          <property name="text">
-           <string>Eliminar seleccionado</string>
-          </property>
-         </widget>
+         <widget class="QTableWidget" name="table_genero"/>
         </item>
        </layout>
       </widget>
@@ -241,38 +261,42 @@
        </attribute>
        <layout class="QGridLayout" name="gridLayout_7">
         <item row="0" column="0">
-         <widget class="QLineEdit" name="lineEdit_8"/>
+         <widget class="QLineEdit" name="edit_empleado_buscar">
+          <property name="placeholderText">
+           <string>Buscar empleado...</string>
+          </property>
+         </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QPushButton" name="pushButton_23">
+         <widget class="QPushButton" name="push_empleado_buscar">
           <property name="text">
            <string>Buscar</string>
           </property>
          </widget>
         </item>
+        <item row="2" column="2" colspan="2">
+         <widget class="QPushButton" name="push_empleado_eliminar">
+          <property name="text">
+           <string>Eliminar seleccionado</string>
+          </property>
+         </widget>
+        </item>
         <item row="0" column="2">
-         <widget class="QPushButton" name="pushButton_21">
+         <widget class="QPushButton" name="push_empleado_mostrar">
           <property name="text">
            <string>Mostrar</string>
           </property>
          </widget>
         </item>
         <item row="0" column="3">
-         <widget class="QPushButton" name="pushButton_24">
+         <widget class="QPushButton" name="push_empleado_nuevo">
           <property name="text">
            <string>Nuevo</string>
           </property>
          </widget>
         </item>
         <item row="1" column="0" colspan="4">
-         <widget class="QTableView" name="tableView_6"/>
-        </item>
-        <item row="2" column="2" colspan="2">
-         <widget class="QPushButton" name="pushButton_22">
-          <property name="text">
-           <string>Eliminar seleccionado</string>
-          </property>
-         </widget>
+         <widget class="QTableWidget" name="table_empleado"/>
         </item>
        </layout>
       </widget>
