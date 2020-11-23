@@ -22,5 +22,5 @@ class Autor:
         self.conn.noQuery(
             "delete from autor where codigo = %s", (self._key,))
 
-    def search(self):
-        return self.conn.query("select * from autor where nombre  like %% %s %%;", (self.nombre,))
+    def search(self, nombre):
+        return self.conn.query("select * from autor where upper(nombre) like upper(%s);", (f'%{nombre}%',))

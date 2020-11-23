@@ -24,4 +24,4 @@ class Editorial:
                           (self.nombre, self.paisorigen, self._key))
 
     def search(self, nombre):
-        return self.conn.query("select * from editorial where nombre  like %%%s%%;", (nombre,))
+        return self.conn.query("select * from editorial where upper(nombre) like upper(%s);", (f'%{nombre}%',))

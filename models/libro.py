@@ -100,4 +100,4 @@ class Libro:
             "delete from libro where codigo = %s", (self.codigo,))
 
     def search(self, nombre):
-        return self.conn.query("select * from sucursal where nombre like %%%s%%;", (nombre,))
+        return self.conn.query("select * from libro where upper(titulo) like upper(%s);", (f'%{nombre}%',))

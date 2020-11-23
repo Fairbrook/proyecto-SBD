@@ -27,5 +27,14 @@ class LibroSucursal:
     def update(self):
         self.conn.noQuery("update libro_sucursal set libro = %s, sucursal=%s, existencia=%s where sucursal = %s and libro = %s;",
                           (self.libro, self.sucursal, self.existencia, self._key[1], self._key[0]))
-    def search(self):
-        return self.conn.query("select * from libro_sucursal where libro.codigo  like %s%;", (self.codigo,))
+
+    def search(self, titulo):
+        return self.conn.query("""
+        select libro.titulo as libro,
+        sucursal,
+        existencia,
+        libro as libro_id
+        from libro_sucursal
+        inner join libro on libro.codigo = libro_sucursal.libro 
+        where upper(libro.titulo) like upper(%s);
+        """, (f'%{titulo}%',))

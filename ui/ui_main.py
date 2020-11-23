@@ -362,7 +362,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(5)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -401,6 +401,7 @@ class Ui_MainWindow(object):
         self.edit_genero_nuevo.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Nuevo Genero..", None))
         self.push_genero_guardar.setText(QCoreApplication.translate("MainWindow", u"Guardar", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_8), QCoreApplication.translate("MainWindow", u"Genero", None))
+        self.date_venta_buscar.setDisplayFormat(QCoreApplication.translate("MainWindow", u"d/M/yyyy", None))
         self.push_venta_mostrar.setText(QCoreApplication.translate("MainWindow", u"Mostrar", None))
         self.push_venta_nuevo.setText(QCoreApplication.translate("MainWindow", u"Nuevo", None))
         self.push_venta_eliminar.setText(QCoreApplication.translate("MainWindow", u"Eliminar seleccionado", None))

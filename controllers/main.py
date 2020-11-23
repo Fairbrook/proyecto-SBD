@@ -43,36 +43,45 @@ class MainWindow(QMainWindow):
         self.ui.push_editorial_mostrar.clicked.connect(self.onEditorialMostrar)
         self.ui.push_editorial_eliminar.clicked.connect(self.onEditorialEliminar)
         self.ui.push_editorial_buscar.clicked.connect(self.onEditorialBuscar)
+        
         self.ui.push_genero_mostrar.clicked.connect(self.onGeneroMostrar)
         self.ui.push_genero_guardar.clicked.connect(self.onGeneroGuardar)
         self.ui.push_genero_eliminar.clicked.connect(self.onGeneroEliminar)
         self.ui.push_genero_buscar.clicked.connect(self.onGeneroBuscar)
+
         self.ui.push_autor_mostrar.clicked.connect(self.onAutorMostrar)
         self.ui.push_autor_guardar.clicked.connect(self.onAutorGuardar)
         self.ui.push_autor_eliminar.clicked.connect(self.onAutorMostrar)
         self.ui.push_autor_buscar.clicked.connect(self.onAutorBuscar)
+
         self.ui.push_libro_nuevo.clicked.connect(self.onLibroNuevo)
         self.ui.push_libro_mostrar.clicked.connect(self.onLibroMostrar)
         self.ui.push_libro_eliminar.clicked.connect(self.onLibroEliminar)
         self.ui.push_libro_buscar.clicked.connect(self.onLibroBuscar)
+
         self.ui.push_sucursal_nuevo.clicked.connect(self.onSucursalNuevo)
         self.ui.push_sucursal_mostrar.clicked.connect(self.onSucursalMostrar)
         self.ui.push_sucursal_eliminar.clicked.connect(self.onSucursalEliminar)
         self.ui.push_sucursal_buscar.clicked.connect(self.onSucursalBuscar)
+
         self.ui.push_gerente_nuevo.clicked.connect(self.onSupervisorNuevo)
         self.ui.push_gerente_mostrar.clicked.connect(self.onSupervisorMostrar)
         self.ui.push_gerente_eliminar.clicked.connect( self.onSupervisorEliminar)
         self.ui.push_gerente_buscar.clicked.connect(self.onSupervisorBuscar)
+
         self.ui.push_empleado_nuevo.clicked.connect(self.onEmpleadoNuevo)
         self.ui.push_empleado_mostrar.clicked.connect(self.onEmpleadoMostrar)
         self.ui.push_empleado_eliminar.clicked.connect(self.onEmpleadoEliminar)
         self.ui.push_empleado_buscar.clicked.connect(self.onEmpleadoBuscar)
+
         self.ui.push_venta_nuevo.clicked.connect(self.onVentaNuevo)
         self.ui.push_venta_mostrar.clicked.connect(self.onVentaMostrar)
         self.ui.push_venta_eliminar.clicked.connect(self.onVentaEliminar)
         self.ui.push_venta_buscar.clicked.connect(self.onVentaBuscar)
+
         self.ui.push_existencia_nuevo.clicked.connect(self.onExistenciaNuevo)
         self.ui.push_existencia_mostrar.clicked.connect(self.onExistenciaMostrar)
+        self.ui.push_existencia_buscar.clicked.connect(self.onExistenciaBuscar)
 
         # double clicks
         self.ui.table_libro.doubleClicked.connect(self.onLibroEdit)
@@ -316,7 +325,7 @@ class MainWindow(QMainWindow):
     def onExistenciaMostrar(self):
         all = self.existencia.getAll()
         self.existencias = all
-        self.setExistencia()
+        self.setExistencias()
 
     def setExistencias(self):
         headers = ['Libro', 'Sucursal', 'Existencia']
@@ -490,7 +499,7 @@ class MainWindow(QMainWindow):
     #Buscar
     @Slot()
     def onVentaBuscar(self):
-        self.ventas = self.venta.search(self.ui.date_venta_buscar.text())
+        self.ventas = self.venta.search(self.ui.date_venta_buscar.date().toPython())
         self.setVentas()
 
     @Slot()
@@ -502,7 +511,7 @@ class MainWindow(QMainWindow):
     @Slot()
     def onGeneroBuscar(self):
         self.generos = self.genero.search(self.ui.edit_genero_buscar.text())
-        return self.genero
+        self.setGeneros()
 
     @Slot()
     def onAutorBuscar(self):

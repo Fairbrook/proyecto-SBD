@@ -23,5 +23,5 @@ class Supervisor:
         self.conn.noQuery(
             "delete from supervisor where codigo = %s", (self._key,))
 
-    def search(self):
-        return self.conn.query("select * from supervisor where codigo  like %s%;", (self.codigo,))
+    def search(self, nombre):
+        return self.conn.query("select * from supervisor where upper(nombre) like upper(%s);", (f'%{nombre}%',))
