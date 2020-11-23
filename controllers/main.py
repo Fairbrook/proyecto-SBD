@@ -102,19 +102,9 @@ class MainWindow(QMainWindow):
         editorial.exec_()
 
     @Slot()
-    def onEditorialBuscar(self):
-        self.editoriales = self.editorial.search(self.ui.edit_editorial_buscar.text())
-        return self.editoriales
-
-    @Slot()
     def onLibroNuevo(self):
         libro = LibroWindow()
         libro.exec_()
-
-    @Slot()
-    def onLibroBuscar(self):
-        self.libro = self.libro.search(self.ui.edit_libro_buscar.text())
-        return self.libro
 
     @Slot()
     def onSucursalNuevo(self):
@@ -122,25 +112,9 @@ class MainWindow(QMainWindow):
         sucursal.exec_()
 
     @Slot()
-    def onSucursalBuscar(self):
-        self.sucursal = self.sucursal.search(self.ui.edit_sucursal_buscar.text())
-        return self.sucursal
-
-    @Slot()
     def onSupervisorNuevo(self):
         supervisor = SupervisorWindow()
         supervisor.exec_()
-
-    @Slot()
-    def onSupervisorBuscar(self):
-        self.supervisor = self.supervisor.search(
-            self.ui.edit_gerente_buscar.text())
-        return self.supervisor
-
-    @Slot()
-    def onEmpleadoBuscar(self):
-        self.empleado = self.empleado.search(self.ui.edit_empleado_buscar.text())
-        return self.empleado
 
     @Slot()
     def onEmpleadoNuevo(self):
@@ -153,20 +127,9 @@ class MainWindow(QMainWindow):
         venta.exec_()
 
     @Slot()
-    def onVentaBuscar(self):
-        self.venta = self.venta.search(self.ui.date_venta_buscar.text())
-        return self.venta
-
-    @Slot()
     def onExistenciaNuevo(self):
         venta = ExistenciaWindow()
         venta.exec_()
-
-    @Slot()
-    def onExistenciaBuscar(self):
-        self.existencia = self.existencia.search(
-            self.ui.edit_existencia_buscar.text())
-        return self.existencia
 
     @Slot()
     def onGeneroGuardar(self):
@@ -203,35 +166,31 @@ class MainWindow(QMainWindow):
     def onGeneroMostrar(self):
         allGenero = self.genero.getAll()
         self.generos = allGenero
+        self.setGeneros()
+
+    def setGeneros(self):
         headers = ['Tipo']
-        self.ui.table_genero.setRowCount(len(allGenero))
+        self.ui.table_genero.setRowCount(len(self.generos))
         self.ui.table_genero.setColumnCount(len(headers))
         self.ui.table_genero.setHorizontalHeaderLabels(headers)
-        for row, categoria in enumerate(allGenero):
+        for row, categoria in enumerate(self.generos):
             self.ui.table_genero.setItem(
                 row, 0, QTableWidgetItem(categoria['tipo']))
-
-    @Slot()
-    def onGeneroBuscar(self):
-        self.genero = self.genero.search(self.ui.edit_genero_buscar.text())
-        return self.genero
 
     @Slot()
     def onAutorMostrar(self):
         all = self.autor.getAll()
         self.autores = all
+        self.setAutores()
+
+    def setAutores(self):
         headers = ['Nombre']
-        self.ui.table_autor.setRowCount(len(all))
+        self.ui.table_autor.setRowCount(len(self.autores))
         self.ui.table_autor.setColumnCount(len(headers))
         self.ui.table_autor.setHorizontalHeaderLabels(headers)
-        for row, categoria in enumerate(all):
+        for row, categoria in enumerate(self.autores):
             self.ui.table_autor.setItem(
                 row, 0, QTableWidgetItem(categoria['nombre']))
-
-    @Slot()
-    def onAutorBuscar(self):
-        self.autor = self.autor.search(self.ui.edit_autor_buscar.text())
-        return self.autor
 
     @Slot()
     def onLibroMostrar(self):
@@ -271,11 +230,14 @@ class MainWindow(QMainWindow):
     def onSucursalMostrar(self):
         all = self.sucursal.getAll()
         self.sucursales = all
+        self.setSucursales()
+
+    def setSucursales(self):
         headers = ['Nombre', 'Direccion', 'Telefono']
-        self.ui.table_sucursal.setRowCount(len(all))
+        self.ui.table_sucursal.setRowCount(len(self.sucursales))
         self.ui.table_sucursal.setColumnCount(len(headers))
         self.ui.table_sucursal.setHorizontalHeaderLabels(headers)
-        for row, sucursal in enumerate(all):
+        for row, sucursal in enumerate(self.sucursales):
             self.ui.table_sucursal.setItem(
                 row, 0, QTableWidgetItem(sucursal['nombre']))
             self.ui.table_sucursal.setItem(
@@ -287,11 +249,14 @@ class MainWindow(QMainWindow):
     def onSupervisorMostrar(self):
         all = self.supervisor.getAll()
         self.supervisores = all
+        self.setSupervisores()
+
+    def setSupervisores(self):
         headers = ['Código', 'Nombre', 'Telefono']
-        self.ui.table_gerente.setRowCount(len(all))
+        self.ui.table_gerente.setRowCount(len(self.supervisores))
         self.ui.table_gerente.setColumnCount(len(headers))
         self.ui.table_gerente.setHorizontalHeaderLabels(headers)
-        for row, gerente in enumerate(all):
+        for row, gerente in enumerate(self.supervisores):
             self.ui.table_gerente.setItem(
                 row, 0, QTableWidgetItem(str(gerente['codigo'])))
             self.ui.table_gerente.setItem(
@@ -303,11 +268,14 @@ class MainWindow(QMainWindow):
     def onEmpleadoMostrar(self):
         all = self.empleado.getAll()
         self.empleados = all
+        self.setEmpleados()
+
+    def setEmpleados(self):
         headers = ['Código', 'Nombre', 'Telefono', 'Tipo', 'Supervisor']
-        self.ui.table_empleado.setRowCount(len(all))
+        self.ui.table_empleado.setRowCount(len(self.empleados))
         self.ui.table_empleado.setColumnCount(len(headers))
         self.ui.table_empleado.setHorizontalHeaderLabels(headers)
-        for row, empleado in enumerate(all):
+        for row, empleado in enumerate(self.empleados):
             self.ui.table_empleado.setItem(
                 row, 0, QTableWidgetItem(str(empleado['codigo'])))
             self.ui.table_empleado.setItem(
@@ -323,11 +291,14 @@ class MainWindow(QMainWindow):
     def onVentaMostrar(self):
         all = self.venta.getAll()
         self.ventas = all
+        self.setVentas()
+
+    def setVentas(self):
         headers = ['Folio', 'Empleado', 'Fecha', 'Total']
-        self.ui.table_venta.setRowCount(len(all))
+        self.ui.table_venta.setRowCount(len(self.ventas))
         self.ui.table_venta.setColumnCount(len(headers))
         self.ui.table_venta.setHorizontalHeaderLabels(headers)
-        for row, venta in enumerate(all):
+        for row, venta in enumerate(self.ventas):
             self.ui.table_venta.setItem(
                 row, 0, QTableWidgetItem(str(venta['folio'])))
             self.ui.table_venta.setItem(
@@ -341,11 +312,14 @@ class MainWindow(QMainWindow):
     def onExistenciaMostrar(self):
         all = self.existencia.getAll()
         self.existencias = all
+        self.setExistencia()
+
+    def setExistencias(self):
         headers = ['Libro', 'Sucursal', 'Existencia']
-        self.ui.table_existencia.setRowCount(len(all))
+        self.ui.table_existencia.setRowCount(len(self.existencias))
         self.ui.table_existencia.setColumnCount(len(headers))
         self.ui.table_existencia.setHorizontalHeaderLabels(headers)
-        for row, existencia in enumerate(all):
+        for row, existencia in enumerate(self.existencias):
             self.ui.table_existencia.setItem(
                 row, 0, QTableWidgetItem(existencia['libro']))
             self.ui.table_existencia.setItem(
@@ -508,3 +482,51 @@ class MainWindow(QMainWindow):
                     f'El supervisor "{supervisor.codigo}" no puede eliminarse'
                 )
             self.onSupervisorMostrar()
+
+    #Buscar
+    @Slot()
+    def onVentaBuscar(self):
+        self.ventas = self.venta.search(self.ui.date_venta_buscar.text())
+        self.setVentas()
+
+    @Slot()
+    def onExistenciaBuscar(self):
+        self.existencias = self.existencia.search(
+            self.ui.edit_existencia_buscar.text())
+        self.setExistencias()
+    
+    @Slot()
+    def onGeneroBuscar(self):
+        self.generos = self.genero.search(self.ui.edit_genero_buscar.text())
+        return self.genero
+
+    @Slot()
+    def onAutorBuscar(self):
+        self.autores = self.autor.search(self.ui.edit_autor_buscar.text())
+        self.setAutores()
+
+    @Slot()
+    def onEditorialBuscar(self):
+        self.editoriales = self.editorial.search(self.ui.edit_editorial_buscar.text())
+        self.setAutores()
+
+    @Slot()
+    def onLibroBuscar(self):
+        self.libros = self.libro.search(self.ui.edit_libro_buscar.text())
+        self.setLibros()
+
+    @Slot()
+    def onSucursalBuscar(self):
+        self.sucursales = self.sucursal.search(self.ui.edit_sucursal_buscar.text())
+        self.setSucursales()
+
+    @Slot()
+    def onSupervisorBuscar(self):
+        self.supervisores = self.supervisor.search(
+            self.ui.edit_gerente_buscar.text())
+        self.setSupervisores()
+
+    @Slot()
+    def onEmpleadoBuscar(self):
+        self.empleados = self.empleado.search(self.ui.edit_empleado_buscar.text())
+        self.setEmpleados()
