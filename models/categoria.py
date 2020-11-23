@@ -20,3 +20,6 @@ class Genero:
 
     def delete(self):
         self.conn.noQuery("delete from genero where tipo = %s", (self.tipo,))
+
+    def search(self):
+        return self.conn.query("select * from genero where tipo  like %s%;", (self.tipo,))

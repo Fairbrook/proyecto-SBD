@@ -16,7 +16,12 @@ class Editorial:
         return self.conn.query('select * from editorial;')
 
     def delete(self):
-        self.conn.noQuery("delete from editorial where nombre = %s", (self.nombre,))
+        self.conn.noQuery(
+            "delete from editorial where nombre = %s", (self.nombre,))
 
     def update(self):
-        self.conn.noQuery("update editorial set nombre=%s, paisorigen=%s where nombre=%s",(self.nombre, self.paisorigen, self._key))
+        self.conn.noQuery("update editorial set nombre=%s, paisorigen=%s where nombre=%s",
+                          (self.nombre, self.paisorigen, self._key))
+
+    def search(self, nombre):
+        return self.conn.query("select * from editorial where nombre  like %s%;", (nombre,))

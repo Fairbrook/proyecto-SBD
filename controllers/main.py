@@ -95,10 +95,16 @@ class MainWindow(QMainWindow):
         self.ui.table_autor.itemChanged.connect(self.onAutorChange)
         self.ui.table_genero.itemChanged.connect(self.onGeneroChange)
 
+    # Nuevo
     @Slot()
     def onEditorialNuevo(self):
         editorial = EditorialWindow()
         editorial.exec_()
+
+    @Slot()
+    def onEditorialBuscar(self):
+        self.editoriales = self.editorial.search(self.ui.edit_editorial_buscar.text())
+        return self.editoriales
 
     @Slot()
     def onLibroNuevo(self):
@@ -106,15 +112,19 @@ class MainWindow(QMainWindow):
         libro.exec_()
 
     @Slot()
+    def onLibroBuscar(self):
+        self.libro = self.libro.search(self.ui.edit_libro_buscar.text())
+        return self.libro
+
+    @Slot()
     def onSucursalNuevo(self):
         sucursal = SucursalWindow()
         sucursal.exec_()
 
     @Slot()
-    def onSucursalEliminar(self):
-        for item in self.ui.table_sucursal.selectedIndexes():
-            Sucursal(nombre=self.sucursales[item.row()]['nombre']).delete()
-            self.onSucursalMostrar()
+    def onSucursalBuscar(self):
+        self.sucursal = self.sucursal.search(self.ui.edit_sucursal_buscar.text())
+        return self.sucursal
 
     @Slot()
     def onSupervisorNuevo(self):
@@ -122,12 +132,15 @@ class MainWindow(QMainWindow):
         supervisor.exec_()
 
     @Slot()
-    def onSupervisorEliminar(self):
-        for item in self.ui.table_gerente.selectedIndexes():
-            supervisor = Supervisor()
-            supervisor.codigo = self.supervisores[item.row()]['codigo']
-            supervisor.delete()
-            self.onSupervisorMostrar()
+    def onSupervisorBuscar(self):
+        self.supervisor = self.supervisor.search(
+            self.ui.edit_gerente_buscar.text())
+        return self.supervisor
+
+    @Slot()
+    def onEmpleadoBuscar(self):
+        self.empleado = self.empleado.search(self.ui.edit_empleado_buscar.text())
+        return self.empleado
 
     @Slot()
     def onEmpleadoNuevo(self):
@@ -135,32 +148,14 @@ class MainWindow(QMainWindow):
         empleado.exec_()
 
     @Slot()
-    def onEmpleadoEliminar(self):
-        for item in self.ui.table_empleado.selectedIndexes():
-            empleado = Empleado()
-            empleado._key = self.empleados[item.row()]['codigo']
-            try:
-                empleado.delete()
-                self.onEmpleadoMostrar()
-            except ForeignKeyViolation:
-                QMessageBox.warning(
-                    self,
-                    "Atención",
-                    f'El empleado "{empleado._key}" no puede eliminarse'
-                )
-
-    @Slot()
     def onVentaNuevo(self):
         venta = VentaWindow()
         venta.exec_()
 
     @Slot()
-    def onVentaEliminar(self):
-        for item in self.ui.table_venta.selectedIndexes():
-            compra = Compra()
-            compra.folio = self.ventas[item.row()]['folio']
-            compra.delete()
-            self.onVentaMostrar()
+    def onVentaBuscar(self):
+        self.venta = self.venta.search(self.ui.date_venta_buscar.text())
+        return self.venta
 
     @Slot()
     def onExistenciaNuevo(self):
@@ -168,15 +163,30 @@ class MainWindow(QMainWindow):
         venta.exec_()
 
     @Slot()
+    def onExistenciaBuscar(self):
+        self.existencia = self.existencia.search(
+            self.ui.edit_existencia_buscar.text())
+        return self.existencia
+
+    @Slot()
+    def onGeneroGuardar(self):
+        tipo = self.ui.edit_genero_nuevo.text()
+        cat = Genero(tipo)
+        cat.save()
+        self.ui.edit_genero_nuevo.clear()
+
+    @Slot()
+    def onAutorGuardar(self):
+        nombre = self.ui.edit_autor_guardar.text()
+        autor = Autor(nombre)
+        autor.save()
+        self.ui.edit_autor_guardar.clear()
+
+    # mostrar
+    @Slot()
     def onEditorialMostrar(self):
         self.editoriales = self.editorial.getAll()
         self.setEditoriales()
-
-    @Slot()
-    def onEditorialEliminar(self):
-        for item in self.ui.table_editorial.selectedIndexes():
-            Editorial(nombre=self.editoriales[item.row()]['nombre']).delete()
-        self.onEditorialMostrar()
 
     def setEditoriales(self):
         headers = ['Nombre', 'Pais']
@@ -188,19 +198,6 @@ class MainWindow(QMainWindow):
                 row, 0, QTableWidgetItem(editorial['nombre']))
             self.ui.table_editorial.setItem(
                 row, 1, QTableWidgetItem(editorial['paisorigen']))
-
-    @Slot()
-    def onGeneroGuardar(self):
-        tipo = self.ui.edit_genero_nuevo.text()
-        cat = Genero(tipo)
-        cat.save()
-        self.ui.edit_genero_nuevo.clear()
-
-    @Slot()
-    def onGeneroEliminar(self):
-        for item in self.ui.table_genero.selectedIndexes():
-            Genero(tipo=self.generos[item.row()]['tipo']).delete()
-        self.onGeneroMostrar()
 
     @Slot()
     def onGeneroMostrar(self):
@@ -215,11 +212,9 @@ class MainWindow(QMainWindow):
                 row, 0, QTableWidgetItem(categoria['tipo']))
 
     @Slot()
-    def onAutorGuardar(self):
-        nombre = self.ui.edit_autor_guardar.text()
-        autor = Autor(nombre)
-        autor.save()
-        self.ui.edit_autor_guardar.clear()
+    def onGeneroBuscar(self):
+        self.genero = self.genero.search(self.ui.edit_genero_buscar.text())
+        return self.genero
 
     @Slot()
     def onAutorMostrar(self):
@@ -234,10 +229,9 @@ class MainWindow(QMainWindow):
                 row, 0, QTableWidgetItem(categoria['nombre']))
 
     @Slot()
-    def onAutorEliminar(self):
-        for item in self.ui.table_autor.selectedIndexes():
-            Autor(nombre=self.editoriales[item.row()]['nombre']).delete()
-        self.onAutorMostrar()
+    def onAutorBuscar(self):
+        self.autor = self.autor.search(self.ui.edit_autor_buscar.text())
+        return self.autor
 
     @Slot()
     def onLibroMostrar(self):
@@ -272,12 +266,6 @@ class MainWindow(QMainWindow):
                 row, 8, QTableWidgetItem(libro['autor']))
             self.ui.table_libro.setItem(
                 row, 9, QTableWidgetItem(libro['genero']))
-
-    @Slot()
-    def onLibroEliminar(self):
-        for item in self.ui.table_libro.selectedIndexes():
-            Libro(codigo=self.libros[item.row()]['codigo']).delete()
-        self.onAutorMostrar()
 
     @Slot()
     def onSucursalMostrar(self):
@@ -365,7 +353,7 @@ class MainWindow(QMainWindow):
             self.ui.table_existencia.setItem(
                 row, 2, QTableWidgetItem(str(existencia['existencia'])))
 
-# Edit functions
+    # Edit functions
     @Slot()
     def onLibroEdit(self, item):
         window = LibroWindow(self.libros[item.row()])
@@ -417,3 +405,106 @@ class MainWindow(QMainWindow):
             genero.tipo = item.text()
             genero.update()
             self.onGeneroMostrar()
+
+    # eliminar
+    @Slot()
+    def onSucursalEliminar(self):
+        for item in self.ui.table_sucursal.selectedIndexes():
+            nombre = self.sucursales[item.row()]['nombre']
+            Sucursal(nombre=nombre).delete()
+        self.onSucursalMostrar()
+
+    @Slot()
+    def onLibroEliminar(self):
+        for item in self.ui.table_libro.selectedIndexes():
+            try:
+                codigo = self.libros[item.row()]['codigo']
+                Libro(codigo=codigo).delete()
+            except ForeignKeyViolation:
+                QMessageBox.warning(
+                    self,
+                    "Atención",
+                    f'El libro con codigo "{codigo}" no puede eliminarse'
+                )
+        self.onAutorMostrar()
+
+    @Slot()
+    def onAutorEliminar(self):
+        for item in self.ui.table_autor.selectedIndexes():
+            try:
+                nombre = self.autores[item.row()]['nombre']
+                Autor(codigo=self.autores[item.row()]['codigo']).delete()
+            except ForeignKeyViolation:
+                QMessageBox.warning(
+                    self,
+                    "Atención",
+                    f'El autor "{nombre}" no puede eliminarse'
+                )
+        self.onAutorMostrar()
+
+    @Slot()
+    def onGeneroEliminar(self):
+        for item in self.ui.table_genero.selectedIndexes():
+            try:
+                tipo = self.generos[item.row()]['tipo']
+                Genero(tipo=tipo).delete()
+            except ForeignKeyViolation:
+                QMessageBox.warning(
+                    self,
+                    "Atención",
+                    f'El genero "{tipo}" no puede eliminarse'
+                )
+        self.onGeneroMostrar()
+
+    @Slot()
+    def onEditorialEliminar(self):
+        for item in self.ui.table_editorial.selectedIndexes():
+            try:
+                nombre = self.editoriales[item.row()]['nombre']
+                Editorial(nombre=nombre).delete()
+            except ForeignKeyViolation:
+                QMessageBox.warning(
+                    self,
+                    "Atención",
+                    f'La editorial "{nombre}" no puede eliminarse'
+                )
+        self.onEditorialMostrar()
+
+    @Slot()
+    def onVentaEliminar(self):
+        for item in self.ui.table_venta.selectedIndexes():
+            compra = Compra()
+            compra.folio = self.ventas[item.row()]['folio']
+            compra.delete()
+        self.onVentaMostrar()
+
+    @Slot()
+    def onEmpleadoEliminar(self):
+        for item in self.ui.table_empleado.selectedIndexes():
+            empleado = Empleado()
+            empleado._key = self.empleados[item.row()]['codigo']
+            try:
+                empleado.delete()
+                self.onEmpleadoMostrar()
+            except ForeignKeyViolation:
+                QMessageBox.warning(
+                    self,
+                    "Atención",
+                    f'El empleado "{empleado._key}" no puede eliminarse'
+                )
+        self.onEmpleadoMostrar()
+
+    @Slot()
+    def onSupervisorEliminar(self):
+        for item in self.ui.table_gerente.selectedIndexes():
+            supervisor = Supervisor()
+            supervisor.codigo = self.supervisores[item.row()]['codigo']
+            try:
+                supervisor.delete()
+            except ForeignKeyViolation:
+                QMessageBox.warning(
+                    self,
+                    "Atención",
+                    f'El supervisor "{supervisor.codigo}" no puede eliminarse'
+                )
+            self.onSupervisorMostrar()
