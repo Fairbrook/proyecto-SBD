@@ -71,9 +71,20 @@ class MainWindow(QMainWindow):
         editorial.exec_()
 
     @Slot()
+    def onEditorialBuscar(self):
+        self.editoriales = self.editorial.search(self.ui.edit_editorial.text())
+        return self.editoriales
+
+
+    @Slot()
     def onLibroNuevo(self):
         libro = LibroWindow()
         libro.exec_()
+
+    @Slot()
+    def onLibroBuscar(self):
+        self.libro = self.libro.search(self.ui.edit_libro.text())
+        return self.libro
 
     @Slot()
     def onSucursalNuevo(self):
@@ -86,6 +97,11 @@ class MainWindow(QMainWindow):
             self.onSucursalMostrar();
 
     @Slot()
+    def onSucursalBuscar(self):
+        self.sucursal = self.sucursal.search(self.ui.edit_sucursal.text())
+        return self.sucursal
+
+    @Slot()
     def onSupervisorNuevo(self):
         supervisor = SupervisorWindow()
         supervisor.exec_()
@@ -96,6 +112,15 @@ class MainWindow(QMainWindow):
             Supervisor(codigo= self.empleado[item.row()]['codigo']).delete()
             self.onSupervisorMostrar();
 
+    @Slot()
+    def onSupervisorBuscar(self):
+        self.supervisor = self.supervisor.search(self.ui.edit_supervisor.text())
+        return self.supervisor
+
+    @Slot()
+    def onEmpleadoBuscar(self):
+        self.empleado = self.empleado.search(self.ui.edit_empleado.text())
+        return self.empleado
 
     @Slot()
     def onEmpleadoNuevo(self):
@@ -114,15 +139,31 @@ class MainWindow(QMainWindow):
         venta.exec_()
 
     @Slot()
+    def onVentaBuscar(self):
+        self.venta = self.venta.search(self.ui.edit_venta.text())
+        return self.venta
+
+    @Slot()
     def onVentaEliminar(self):
         for item in self.ui.table_venta.selectedIndexes():
             Compra(codigo= self.venta[item.row()]['folio']).delete()
             self.onVentaMostrar();
 
     @Slot()
+    def onEmpleadoBuscar(self):
+        self.empleado = self.empleado.search(self.ui.edit_empleado.text())
+        return self.empleado
+
+
+    @Slot()
     def onExistenciaNuevo(self):
         venta = ExistenciaWindow()
         venta.exec_()
+
+    @Slot()
+    def onExistenciaBuscar(self):
+        self.existencia = self.existencia.search(self.ui.edit_existencia.text())
+        return self.existencia
 
     @Slot()
     def onEditorialMostrar(self):
@@ -171,6 +212,11 @@ class MainWindow(QMainWindow):
                 row, 0, QTableWidgetItem(categoria['tipo']))
 
     @Slot()
+    def onGeneroBuscar(self):
+        self.genero = self.genero.search(self.ui.edit_genero.text())
+        return self.genero
+
+    @Slot()
     def onAutorGuardar(self):
         nombre = self.ui.edit_autor_guardar.text()
         autor = Autor(nombre)
@@ -193,6 +239,10 @@ class MainWindow(QMainWindow):
             Autor(nombre = self.editoriales[item.row()]['nombre']).delete()
         self.onAutorMostrar()
 
+    @Slot()
+    def onAutorBuscar(self):
+        self.autor = self.autor.search(self.ui.edit_autor.text())
+        return self.autor
 
     @Slot()
     def onLibroMostrar(self):
@@ -231,6 +281,10 @@ class MainWindow(QMainWindow):
             Libro(nombre = self.libro[item.row()]['codigo']).delete()
         self.onAutorMostrar()
 
+    @Slot()
+    def onLibroBuscar(self):
+        self.libro = self.libro.search(self.ui.edit_libro.text())
+        return self.libro
 
     @Slot()
     def onSucursalMostrar(self):

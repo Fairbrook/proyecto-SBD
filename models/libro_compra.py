@@ -14,5 +14,3 @@ class LibroCompra:
 
     def getAll(self):
         return self.conn.query('select * from compra;')
-
-

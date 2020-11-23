@@ -15,3 +15,6 @@ class Autor:
 
     def delete(self):
         self.conn.noQuery("delete from autor where nombre = %s", (self.nombre,))
+
+    def search(self):
+        return self.conn.query("select * from autor where nombre  like %s%;", (self.nombre,))

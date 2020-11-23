@@ -21,3 +21,6 @@ class LibroSucursal:
          from libro_sucursal
          inner join libro on libro.codigo = libro_sucursal.libro
         """)
+
+    def search(self):
+        return self.conn.query("select * from libro_sucursal where libro.codigo  like %s%;", (self.codigo,))

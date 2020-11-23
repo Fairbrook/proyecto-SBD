@@ -68,3 +68,6 @@ class Libro:
         """)
     def delete(self):
         self.conn.noQuery("delete from libro where codigo = %s", (self.codigo,))
+
+    def search(self):
+        return self.conn.query("select * from sucursal where codigo  like %s%;", (self.codigo,))

@@ -16,3 +16,6 @@ class Editorial:
 
     def delete(self):
         self.conn.noQuery("delete from editorial where nombre = %s", (self.nombre,))
+
+    def search(self):
+        return self.conn.query("select * from editorial where nombre  like %s%;", (self.nombre,))

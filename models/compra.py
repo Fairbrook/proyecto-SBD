@@ -30,3 +30,6 @@ class Compra:
     def delete(self):
         self.conn.noQuery("delete from libro_compra where folio where compra.folio =%s",(self.folio,))
         self.conn.noQuery("delete from compra where folio = %s", (self.folio,))
+
+    def search(self):
+        return self.conn.query("select * from compra where folio  like %s%;", (self.folio,))

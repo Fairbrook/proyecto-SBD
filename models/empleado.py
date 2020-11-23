@@ -26,3 +26,6 @@ class Empleado:
         """,)
     def delete(self):
         self.conn.noQuery("delete from empleado where codigo = %s", (self.codigo,))
+
+    def search(self):
+        return self.conn.query("select * from empleado where codigp  like %s%;", (self.codigo,))
