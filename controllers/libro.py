@@ -8,10 +8,11 @@ from models.libro import Libro
 
 
 class LibroWindow(QDialog):
-    def __init__(self):
+    def __init__(self, libro=None):
         super(LibroWindow, self).__init__()
         self.ui = Ui_Dialog()
         self.ui.setupUi(self)
+        self.libro = libro
 
         self.editoriales = Editorial().getAll()
         self.generos = Genero().getAll()
@@ -28,6 +29,21 @@ class LibroWindow(QDialog):
 
         for autor in self.autores:
             self.ui.combo_autor.addItem(autor['nombre'])
+
+        if libro is not None:
+            self.ui.spin_codigo.setValue(libro['codigo'])
+            self.ui.edit_titulo.setText(libro['titulo'])
+            self.ui.edit_isbn.setText(libro['isbn'])
+            self.ui.spin_precio.setValue(libro['precio'])
+            self.ui.edit_idioma.setText(libro['idioma'])
+            self.ui.date_publicacion.setDate(libro['publicacion'])
+            index = self.ui.combo_autor.findText(libro['autor'])
+            self.ui.combo_autor.setCurrentIndex(index)
+            index = self.ui.combo_editorial.findText(libro['editorial'])
+            self.ui.combo_editorial.setCurrentIndex(index)
+            index = self.ui.combo_genero.findText(libro['genero'])
+            self.ui.combo_genero.setCurrentIndex(index)
+            self.ui.edit_encuadernacion.setText(libro['encuadernacion'])
 
     @Slot()
     def onClose(self):
@@ -57,5 +73,9 @@ class LibroWindow(QDialog):
             encuadernacion=encuadernacion,
             genero=genero,
         )
-        libro.save()
+        if self.libro is None:
+            libro.save()
+        else:
+            libro.update()
         self.done(0)
+

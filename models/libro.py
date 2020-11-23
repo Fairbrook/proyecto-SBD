@@ -66,3 +66,28 @@ class Libro:
         autor.nombre as autor
          from libro inner join autor on libro.autor = autor.codigo;
         """)
+
+    def update(self):
+        self.conn.noQuery("""
+        update libro set 
+            titulo = %s, 
+            precio = %s, 
+            isbn = %s, 
+            idioma = %s, 
+            encuadernacion = %s, 
+            publicacion = %s, 
+            autor = %s, 
+            editorial = %s,
+            genero = %s
+        where codigo = %s;
+        """,
+                          (self.titulo,
+                           self.precio,
+                           self.isbn,
+                           self.idioma,
+                           self.encuadernacion,
+                           self.publicacion,
+                           self.autor,
+                           self.editorial,
+                          self.genero,
+                           self.codigo))

@@ -16,3 +16,6 @@ class Editorial:
 
     def delete(self):
         self.conn.noQuery("delete from editorial where nombre = %s", (self.nombre,))
+
+    def update(self):
+        self.conn.noQuery("update editorial set nombre=%s, paisorigen=%s where nombre=%s",(self.nombre, self.paisorigen, self.nombre))

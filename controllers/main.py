@@ -58,6 +58,10 @@ class MainWindow(QMainWindow):
         self.ui.push_existencia_nuevo.clicked.connect(self.onExistenciaNuevo)
         self.ui.push_existencia_mostrar.clicked.connect(self.onExistenciaMostrar)
 
+        #double clicks
+        self.ui.table_libro.doubleClicked.connect(self.onLibroEdit)
+        self.ui.table_editorial.doubleClicked.connect(self.onEditorialEdit)
+
     @Slot()
     def onEditorialNuevo(self):
         editorial = EditorialWindow()
@@ -100,7 +104,6 @@ class MainWindow(QMainWindow):
 
     @Slot()
     def onEditorialEliminar(self):
-        print('hola')
         for item in self.ui.table_editorial.selectedIndexes():
             Editorial(nombre = self.editoriales[item.row()]['nombre']).delete()
         self.onEditorialMostrar()
@@ -154,14 +157,17 @@ class MainWindow(QMainWindow):
 
     @Slot()
     def onLibroMostrar(self):
-        all = self.libro.getAll()
+        self.libros = self.libro.getAll()
+        self.setLibros()
+
+    def setLibros(self):
         headers = ['Codigo', 'Titulo', 'Precio',
                    'ISBN', 'Idioma', 'Encuadernacion',
                    'Publicación', 'Editorial', 'Autor', 'Genero']
-        self.ui.table_libro.setRowCount(len(all))
+        self.ui.table_libro.setRowCount(len(self.libros))
         self.ui.table_libro.setColumnCount(len(headers))
         self.ui.table_libro.setHorizontalHeaderLabels(headers)
-        for row, libro in enumerate(all):
+        for row, libro in enumerate(self.libros):
             self.ui.table_libro.setItem(
                 row, 0, QTableWidgetItem(str(libro['codigo'])))
             self.ui.table_libro.setItem(
@@ -263,3 +269,14 @@ class MainWindow(QMainWindow):
                 row, 1, QTableWidgetItem(existencia['sucursal']))
             self.ui.table_existencia.setItem(
                 row, 2, QTableWidgetItem(str(existencia['existencia'])))
+
+#Edit functions
+    @Slot()
+    def onLibroEdit(self, item):
+        window = LibroWindow(self.libros[item.row()])
+        window.exec_()
+
+    @Slot()
+    def onEditorialEdit(self, item):
+        window = EditorialWindow(self.editoriales[item.row()])
+        window.exec_()

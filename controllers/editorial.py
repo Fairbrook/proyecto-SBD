@@ -5,13 +5,18 @@ from models.editorial import Editorial
 
 
 class EditorialWindow(QDialog):
-    def __init__(self):
+    def __init__(self, editorial=None):
         super(EditorialWindow, self).__init__()
         self.ui = Ui_Dialog()
         self.ui.setupUi(self)
+        self.editorial = editorial
 
         self.ui.push_cancelar.clicked.connect(self.onClose)
         self.ui.push_guardar.clicked.connect(self.onSave)
+
+        if self.editorial is not None:
+            self.ui.edit_nombre.setText(self.editorial['nombre'])
+            self.ui.edit_pais.setText(self.editorial['paisorigen'])
 
     @Slot()
     def onClose(self):
@@ -22,5 +27,8 @@ class EditorialWindow(QDialog):
         nombre = self.ui.edit_nombre.text()
         pais = self.ui.edit_pais.text()
         editorial = Editorial(nombre, pais)
-        editorial.save()
+        if self.editorial is None:
+            editorial.save()
+        else:
+            editorial.update()
         self.done(0)
