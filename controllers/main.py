@@ -284,7 +284,7 @@ class MainWindow(QMainWindow):
         self.setEmpleados()
 
     def setEmpleados(self):
-        headers = ['Código', 'Nombre', 'Telefono', 'Tipo', 'Supervisor']
+        headers = ['Código', 'Nombre', 'Telefono', 'Tipo', 'Supervisor', 'Sucursal']
         self.ui.table_empleado.setRowCount(len(self.empleados))
         self.ui.table_empleado.setColumnCount(len(headers))
         self.ui.table_empleado.setHorizontalHeaderLabels(headers)
@@ -299,6 +299,8 @@ class MainWindow(QMainWindow):
                 row, 3, QTableWidgetItem(empleado['tipo']))
             self.ui.table_empleado.setItem(
                 row, 4, QTableWidgetItem(empleado['supervisor']))
+            self.ui.table_empleado.setItem(
+                row, 5, QTableWidgetItem(empleado['sucursal']))
 
     @Slot()
     def onVentaMostrar(self):
@@ -367,7 +369,8 @@ class MainWindow(QMainWindow):
 
     @Slot()
     def onAutorChange(self, item):
-        autor = Autor(self.autores[item.row()]['nombre'])
+        autor = Autor(nombre = self.autores[item.row()]['nombre'], 
+        codigo = self.autores[item.row()]['codigo'])
         if autor.nombre != item.text():
             autor.nombre = item.text()
             autor.update()

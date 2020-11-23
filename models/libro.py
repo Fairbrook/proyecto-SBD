@@ -100,4 +100,18 @@ class Libro:
             "delete from libro where codigo = %s", (self.codigo,))
 
     def search(self, nombre):
-        return self.conn.query("select * from libro where upper(titulo) like upper(%s);", (f'%{nombre}%',))
+        return self.conn.query("""
+                                select titulo,
+                                libro.codigo as codigo,
+                                precio,
+                                isbn,
+                                idioma,
+                                encuadernacion,
+                                publicacion,
+                                editorial,
+                                genero,
+                                autor.nombre as autor
+                                from libro 
+                                inner join autor on libro.autor = autor.codigo 
+                                where upper(titulo) like upper(%s);
+                            """, (f'%{nombre}%',))
