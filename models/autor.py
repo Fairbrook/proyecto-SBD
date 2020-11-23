@@ -12,3 +12,6 @@ class Autor:
 
     def getAll(self):
         return self.conn.query('select * from autor;')
+
+    def delete(self):
+        self.conn.noQuery("delete from autor where nombre = %s", (self.nombre,))

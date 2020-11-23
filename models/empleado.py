@@ -24,3 +24,5 @@ class Empleado:
             supervisor.nombre as supervisor 
             from empleado inner join supervisor on empleado.supervisor = supervisor.codigo;
         """,)
+    def delete(self):
+        self.conn.noQuery("delete from empleado where codigo = %s", (self.codigo,))

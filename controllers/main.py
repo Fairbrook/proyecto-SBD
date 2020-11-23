@@ -45,16 +45,22 @@ class MainWindow(QMainWindow):
         self.ui.push_genero_guardar.clicked.connect(self.onGeneroGuardar)
         self.ui.push_autor_mostrar.clicked.connect(self.onAutorMostrar)
         self.ui.push_autor_guardar.clicked.connect(self.onAutorGuardar)
+        self.ui.push_autor_eliminar.clicked.connect(self.onAutorMostrar)
         self.ui.push_libro_nuevo.clicked.connect(self.onLibroNuevo)
         self.ui.push_libro_mostrar.clicked.connect(self.onLibroMostrar)
+        self.ui.push_libro_eliminar.clicked.connect(self.onLibroEliminar)
         self.ui.push_sucursal_nuevo.clicked.connect(self.onSucursalNuevo)
         self.ui.push_sucursal_mostrar.clicked.connect(self.onSucursalMostrar)
+        self.ui.push_sucursal_eliminar.clicked.connect(self.onSucursalEliminar)
         self.ui.push_gerente_nuevo.clicked.connect(self.onSupervisorNuevo)
         self.ui.push_gerente_mostrar.clicked.connect(self.onSupervisorMostrar)
+        self.ui.push_gerente_eliminar.clicked.connect(self.onSupervisorEliminar)
         self.ui.push_empleado_nuevo.clicked.connect(self.onEmpleadoNuevo)
         self.ui.push_empleado_mostrar.clicked.connect(self.onEmpleadoMostrar)
+        self.ui.push_editorial_eliminar.clicked.connect(self.onEmpleadoEliminar)
         self.ui.push_venta_nuevo.clicked.connect(self.onVentaNuevo)
         self.ui.push_venta_mostrar.clicked.connect(self.onVentaMostrar)
+        self.ui.push_venta_eliminar.clicked.connect(self.onVentaEliminar)
         self.ui.push_existencia_nuevo.clicked.connect(self.onExistenciaNuevo)
         self.ui.push_existencia_mostrar.clicked.connect(self.onExistenciaMostrar)
 
@@ -72,6 +78,11 @@ class MainWindow(QMainWindow):
     def onSucursalNuevo(self):
         sucursal = SucursalWindow()
         sucursal.exec_()
+    @Slot()
+    def onSucursalEliminar(self):
+        for item in self.ui.table_sucursal.selectedIndexes():
+            Sucursal(codigo= self.empleado[item.row()]['nombre']).delete()
+            self.onSucursalMostrar();
 
     @Slot()
     def onSupervisorNuevo(self):
@@ -79,14 +90,33 @@ class MainWindow(QMainWindow):
         supervisor.exec_()
 
     @Slot()
+    def onSupervisorEliminar(self):
+        for item in self.ui.table_supervisor.selectedIndexes():
+            Supervisor(codigo= self.empleado[item.row()]['codigo']).delete()
+            self.onSupervisorMostrar();
+
+
+    @Slot()
     def onEmpleadoNuevo(self):
         empleado = EmpleadoWindow()
         empleado.exec_()
 
     @Slot()
+    def onEmpleadoEliminar(self):
+        for item in self.ui.table_empleado.selectedIndexes():
+            Empleado(codigo= self.empleado[item.row()]['codigo']).delete()
+            self.onEmpleadoMostrar();
+
+    @Slot()
     def onVentaNuevo(self):
         venta = VentaWindow()
         venta.exec_()
+
+    @Slot()
+    def onVentaEliminar(self):
+        for item in self.ui.table_venta.selectedIndexes():
+            Compra(codigo= self.venta[item.row()]['folio']).delete()
+            self.onVentaMostrar();
 
     @Slot()
     def onExistenciaNuevo(self):
@@ -151,6 +181,12 @@ class MainWindow(QMainWindow):
         for row, categoria in enumerate(all):
             self.ui.table_autor.setItem(
                 row, 0, QTableWidgetItem(categoria['nombre']))
+    @Slot
+    def onAutorEliminar(self):
+        for item in self.ui.table_autor.selectedIndexes():
+            Autor(nombre = self.editoriales[item.row()]['nombre']).delete()
+        self.onAutorMostrar()
+
 
     @Slot()
     def onLibroMostrar(self):
@@ -182,6 +218,13 @@ class MainWindow(QMainWindow):
                 row, 8, QTableWidgetItem(libro['autor']))
             self.ui.table_libro.setItem(
                 row, 9, QTableWidgetItem(libro['genero']))
+
+    @Slot()
+    def onLibroEliminar(self):
+        for item in self.ui.table_libro.selectedIndexes():
+            Libro(nombre = self.libro[item.row()]['codigo']).delete()
+        self.onAutorMostrar()
+
 
     @Slot()
     def onSucursalMostrar(self):
@@ -263,3 +306,4 @@ class MainWindow(QMainWindow):
                 row, 1, QTableWidgetItem(existencia['sucursal']))
             self.ui.table_existencia.setItem(
                 row, 2, QTableWidgetItem(str(existencia['existencia'])))
+

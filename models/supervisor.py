@@ -13,3 +13,6 @@ class Supervisor:
 
     def getAll(self):
         return self.conn.query('select * from supervisor;')
+
+    def delete(self):
+        self.conn.noQuery("delete from supervisor where codigo = %s", (self.codigo,))

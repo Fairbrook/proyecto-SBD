@@ -66,3 +66,5 @@ class Libro:
         autor.nombre as autor
          from libro inner join autor on libro.autor = autor.codigo;
         """)
+    def delete(self):
+        self.conn.noQuery("delete from libro where codigo = %s", (self.codigo,))

@@ -12,3 +12,6 @@ class Genero:
 
     def getAll(self):
         return self.conn.query('select * from genero;')
+
+    def delete(self):
+        self.conn.noQuery("delete from genero where tipo = %s", (self.tipo,))
