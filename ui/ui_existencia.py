@@ -47,6 +47,7 @@ class Ui_Dialog(object):
 
         self.spin_cantidad = QSpinBox(Dialog)
         self.spin_cantidad.setObjectName(u"spin_cantidad")
+        self.spin_cantidad.setMaximum(9999)
 
         self.formLayout.setWidget(2, QFormLayout.FieldRole, self.spin_cantidad)
 

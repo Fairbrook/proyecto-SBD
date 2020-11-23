@@ -105,6 +105,7 @@ class Ui_Dialog(object):
 
         self.spin_precio = QDoubleSpinBox(Dialog)
         self.spin_precio.setObjectName(u"spin_precio")
+        self.spin_precio.setMaximum(9999.989999999999782)
 
         self.gridLayout.addWidget(self.spin_precio, 3, 1, 1, 1)
 

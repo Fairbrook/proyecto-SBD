@@ -42,7 +42,11 @@
          <widget class="QComboBox" name="combo_1"/>
         </item>
         <item>
-         <widget class="QSpinBox" name="spin_1"/>
+         <widget class="QSpinBox" name="spin_1">
+          <property name="maximum">
+           <number>999</number>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>

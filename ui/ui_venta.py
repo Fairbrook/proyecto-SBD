@@ -38,6 +38,7 @@ class Ui_Dialog(object):
 
         self.spin_1 = QSpinBox(self.group_nuevo)
         self.spin_1.setObjectName(u"spin_1")
+        self.spin_1.setMaximum(999)
 
         self.horizontalLayout_2.addWidget(self.spin_1)
 

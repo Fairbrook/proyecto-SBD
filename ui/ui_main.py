@@ -68,11 +68,6 @@ class Ui_MainWindow(object):
 
         self.gridLayout_8.addWidget(self.edit_existencia_buscar, 0, 0, 1, 1)
 
-        self.push_existencia_buscar = QPushButton(self.tab_6)
-        self.push_existencia_buscar.setObjectName(u"push_existencia_buscar")
-
-        self.gridLayout_8.addWidget(self.push_existencia_buscar, 0, 1, 1, 1)
-
         self.push_existencia_mostrar = QPushButton(self.tab_6)
         self.push_existencia_mostrar.setObjectName(u"push_existencia_mostrar")
 
@@ -88,10 +83,10 @@ class Ui_MainWindow(object):
 
         self.gridLayout_8.addWidget(self.table_existencia, 1, 0, 1, 4)
 
-        self.push_existencia_eliminar = QPushButton(self.tab_6)
-        self.push_existencia_eliminar.setObjectName(u"push_existencia_eliminar")
+        self.push_existencia_buscar = QPushButton(self.tab_6)
+        self.push_existencia_buscar.setObjectName(u"push_existencia_buscar")
 
-        self.gridLayout_8.addWidget(self.push_existencia_eliminar, 2, 2, 1, 2)
+        self.gridLayout_8.addWidget(self.push_existencia_buscar, 0, 1, 1, 1)
 
         self.tabWidget.addTab(self.tab_6, "")
         self.tab_2 = QWidget()
@@ -367,7 +362,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.tabWidget.setCurrentIndex(7)
+        self.tabWidget.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -382,10 +377,9 @@ class Ui_MainWindow(object):
         self.edit_libro_buscar.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Buscar Libro...", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), QCoreApplication.translate("MainWindow", u"Libros", None))
         self.edit_existencia_buscar.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Buscar Libro...", None))
-        self.push_existencia_buscar.setText(QCoreApplication.translate("MainWindow", u"Buscar", None))
         self.push_existencia_mostrar.setText(QCoreApplication.translate("MainWindow", u"Mostrar", None))
         self.push_existencia_nuevo.setText(QCoreApplication.translate("MainWindow", u"Nuevo", None))
-        self.push_existencia_eliminar.setText(QCoreApplication.translate("MainWindow", u"Eliminar seleccionado", None))
+        self.push_existencia_buscar.setText(QCoreApplication.translate("MainWindow", u"Buscar", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_6), QCoreApplication.translate("MainWindow", u"Existencia", None))
         self.push_autor_eliminar.setText(QCoreApplication.translate("MainWindow", u"Eliminar seleccionado", None))
         self.edit_autor_buscar.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Buscar autor...", None))
