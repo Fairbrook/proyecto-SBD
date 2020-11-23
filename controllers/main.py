@@ -7,6 +7,7 @@ from .sucursal import SucursalWindow
 from .supervisor import SupervisorWindow
 from .empleado import EmpleadoWindow
 from .venta import VentaWindow
+from .existencia import ExistenciaWindow
 from models.editorial import Editorial
 from models.categoria import Genero
 from models.autor import Autor
@@ -15,6 +16,7 @@ from models.sucursal import Sucursal
 from models.supervisor import Supervisor
 from models.empleado import Empleado
 from models.compra import Compra
+from models.libro_sucursal import LibroSucursal
 
 
 class MainWindow(QMainWindow):
@@ -30,6 +32,7 @@ class MainWindow(QMainWindow):
         self.supervisor = Supervisor()
         self.empleado = Empleado()
         self.venta = Compra()
+        self.existencia = LibroSucursal()
 
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
@@ -37,6 +40,7 @@ class MainWindow(QMainWindow):
         # connections
         self.ui.push_editorial_nuevo.clicked.connect(self.onEditorialNuevo)
         self.ui.push_editorial_mostrar.clicked.connect(self.onEditorialMostrar)
+        self.ui.push_editorial_eliminar.clicked.connect(self.onEditorialEliminar)
         self.ui.push_genero_mostrar.clicked.connect(self.onGeneroMostrar)
         self.ui.push_genero_guardar.clicked.connect(self.onGeneroGuardar)
         self.ui.push_autor_mostrar.clicked.connect(self.onAutorMostrar)
@@ -51,6 +55,8 @@ class MainWindow(QMainWindow):
         self.ui.push_empleado_mostrar.clicked.connect(self.onEmpleadoMostrar)
         self.ui.push_venta_nuevo.clicked.connect(self.onVentaNuevo)
         self.ui.push_venta_mostrar.clicked.connect(self.onVentaMostrar)
+        self.ui.push_existencia_nuevo.clicked.connect(self.onExistenciaNuevo)
+        self.ui.push_existencia_mostrar.clicked.connect(self.onExistenciaMostrar)
 
     @Slot()
     def onEditorialNuevo(self):
@@ -83,13 +89,28 @@ class MainWindow(QMainWindow):
         venta.exec_()
 
     @Slot()
+    def onExistenciaNuevo(self):
+        venta = ExistenciaWindow()
+        venta.exec_()
+
+    @Slot()
     def onEditorialMostrar(self):
-        allEd = self.editorial.getAll()
+        self.editoriales = self.editorial.getAll()
+        self.setEditoriales()
+
+    @Slot()
+    def onEditorialEliminar(self):
+        print('hola')
+        for item in self.ui.table_editorial.selectedIndexes():
+            Editorial(nombre = self.editoriales[item.row()]['nombre']).delete()
+        self.onEditorialMostrar()
+
+    def setEditoriales(self):
         headers = ['Nombre', 'Pais']
-        self.ui.table_editorial.setRowCount(len(allEd))
+        self.ui.table_editorial.setRowCount(len(self.editoriales))
         self.ui.table_editorial.setColumnCount(len(headers))
         self.ui.table_editorial.setHorizontalHeaderLabels(headers)
-        for row, editorial in enumerate(allEd):
+        for row, editorial in enumerate(self.editoriales):
             self.ui.table_editorial.setItem(
                 row, 0, QTableWidgetItem(editorial['nombre']))
             self.ui.table_editorial.setItem(
@@ -186,7 +207,7 @@ class MainWindow(QMainWindow):
         self.ui.table_gerente.setHorizontalHeaderLabels(headers)
         for row, gerente in enumerate(all):
             self.ui.table_gerente.setItem(
-                row, 0, QTableWidgetItem(gerente['codigo']))
+                row, 0, QTableWidgetItem(str(gerente['codigo'])))
             self.ui.table_gerente.setItem(
                 row, 1, QTableWidgetItem(gerente['nombre']))
             self.ui.table_gerente.setItem(
@@ -227,3 +248,18 @@ class MainWindow(QMainWindow):
                 row, 2, QTableWidgetItem(venta['fecha'].strftime('%d/%m/%Y')))
             self.ui.table_venta.setItem(
                 row, 3, QTableWidgetItem(str(venta['total'])))
+
+    @Slot()
+    def onExistenciaMostrar(self):
+        all = self.existencia.getAll()
+        headers = ['Libro', 'Sucursal', 'Existencia']
+        self.ui.table_existencia.setRowCount(len(all))
+        self.ui.table_existencia.setColumnCount(len(headers))
+        self.ui.table_existencia.setHorizontalHeaderLabels(headers)
+        for row, existencia in enumerate(all):
+            self.ui.table_existencia.setItem(
+                row, 0, QTableWidgetItem(existencia['libro']))
+            self.ui.table_existencia.setItem(
+                row, 1, QTableWidgetItem(existencia['sucursal']))
+            self.ui.table_existencia.setItem(
+                row, 2, QTableWidgetItem(str(existencia['existencia'])))
