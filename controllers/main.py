@@ -90,7 +90,7 @@ class MainWindow(QMainWindow):
     @Slot()
     def onSucursalEliminar(self):
         for item in self.ui.table_sucursal.selectedIndexes():
-            Sucursal(codigo=self.empleado[item.row()]['nombre']).delete()
+            Sucursal(nombre=self.sucursales[item.row()]['nombre']).delete()
             self.onSucursalMostrar()
 
     @Slot()
@@ -100,8 +100,10 @@ class MainWindow(QMainWindow):
 
     @Slot()
     def onSupervisorEliminar(self):
-        for item in self.ui.table_supervisor.selectedIndexes():
-            Supervisor(codigo=self.empleado[item.row()]['codigo']).delete()
+        for item in self.ui.table_gerente.selectedIndexes():
+            supervisor = Supervisor()
+            supervisor.codigo=self.supervisores[item.row()]['codigo']
+            supervisor.delete()
             self.onSupervisorMostrar()
 
     @Slot()
@@ -112,7 +114,9 @@ class MainWindow(QMainWindow):
     @Slot()
     def onEmpleadoEliminar(self):
         for item in self.ui.table_empleado.selectedIndexes():
-            Empleado(codigo=self.empleado[item.row()]['codigo']).delete()
+            empleado = Empleado()
+            empleado.codigo = self.empleados[item.row()]['codigo']
+            empleado.delete()
             self.onEmpleadoMostrar()
 
     @Slot()
@@ -123,7 +127,9 @@ class MainWindow(QMainWindow):
     @Slot()
     def onVentaEliminar(self):
         for item in self.ui.table_venta.selectedIndexes():
-            Compra(codigo=self.venta[item.row()]['folio']).delete()
+            compra = Compra()
+            compra.folio = self.ventas[item.row()]['folio']
+            compra.delete()
             self.onVentaMostrar()
 
     @Slot()
@@ -189,7 +195,7 @@ class MainWindow(QMainWindow):
             self.ui.table_autor.setItem(
                 row, 0, QTableWidgetItem(categoria['nombre']))
 
-    @Slot
+    @Slot()
     def onAutorEliminar(self):
         for item in self.ui.table_autor.selectedIndexes():
             Autor(nombre=self.editoriales[item.row()]['nombre']).delete()
@@ -232,12 +238,13 @@ class MainWindow(QMainWindow):
     @Slot()
     def onLibroEliminar(self):
         for item in self.ui.table_libro.selectedIndexes():
-            Libro(nombre=self.libro[item.row()]['codigo']).delete()
+            Libro(codigo=self.libros[item.row()]['codigo']).delete()
         self.onAutorMostrar()
 
     @Slot()
     def onSucursalMostrar(self):
         all = self.sucursal.getAll()
+        self.sucursales = all
         headers = ['Nombre', 'Direccion', 'Telefono']
         self.ui.table_sucursal.setRowCount(len(all))
         self.ui.table_sucursal.setColumnCount(len(headers))
@@ -253,6 +260,7 @@ class MainWindow(QMainWindow):
     @Slot()
     def onSupervisorMostrar(self):
         all = self.supervisor.getAll()
+        self.supervisores = all
         headers = ['Código', 'Nombre', 'Telefono']
         self.ui.table_gerente.setRowCount(len(all))
         self.ui.table_gerente.setColumnCount(len(headers))
@@ -268,6 +276,7 @@ class MainWindow(QMainWindow):
     @Slot()
     def onEmpleadoMostrar(self):
         all = self.empleado.getAll()
+        self.empleados = all
         headers = ['Código', 'Nombre', 'Telefono', 'Tipo', 'Supervisor']
         self.ui.table_empleado.setRowCount(len(all))
         self.ui.table_empleado.setColumnCount(len(headers))
@@ -287,6 +296,7 @@ class MainWindow(QMainWindow):
     @Slot()
     def onVentaMostrar(self):
         all = self.venta.getAll()
+        self.ventas = all
         headers = ['Folio', 'Empleado', 'Fecha', 'Total']
         self.ui.table_venta.setRowCount(len(all))
         self.ui.table_venta.setColumnCount(len(headers))

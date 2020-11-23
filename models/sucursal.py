@@ -16,5 +16,5 @@ class Sucursal:
         return self.conn.query('select * from sucursal;')
 
     def delete(self):
-        self.conn.noQuery("delete from libro_sucursal where sucursal.nombre = %s", (self.nombre,))
+        self.conn.noQuery("delete from libro_sucursal where sucursal = %s", (self.nombre,))
         self.conn.noQuery("delete from sucursal where nombre = %s", (self.nombre,))

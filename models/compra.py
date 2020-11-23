@@ -2,9 +2,10 @@ from .connection import Connection
 
 
 class Compra:
-    def __init__(self, fecha='', empleado=''):
+    def __init__(self, fecha='', empleado='', folio=''):
         self.fecha = fecha
         self.empleado = empleado
+        self.folio = folio
         self.conn = Connection()
 
     def save(self):
@@ -28,5 +29,5 @@ class Compra:
 
 
     def delete(self):
-        self.conn.noQuery("delete from libro_compra where folio where compra.folio =%s",(self.folio,))
+        self.conn.noQuery("delete from libro_compra where compra =%s",(self.folio,))
         self.conn.noQuery("delete from compra where folio = %s", (self.folio,))

@@ -287,10 +287,10 @@ class Ui_MainWindow(object):
         self.tab_9.setObjectName(u"tab_9")
         self.gridLayout_10 = QGridLayout(self.tab_9)
         self.gridLayout_10.setObjectName(u"gridLayout_10")
-        self.purh_gerente_eliminar = QPushButton(self.tab_9)
-        self.purh_gerente_eliminar.setObjectName(u"purh_gerente_eliminar")
+        self.push_gerente_eliminar = QPushButton(self.tab_9)
+        self.push_gerente_eliminar.setObjectName(u"push_gerente_eliminar")
 
-        self.gridLayout_10.addWidget(self.purh_gerente_eliminar, 2, 2, 1, 2)
+        self.gridLayout_10.addWidget(self.push_gerente_eliminar, 2, 2, 1, 2)
 
         self.push_gerente_mostrar = QPushButton(self.tab_9)
         self.push_gerente_mostrar.setObjectName(u"push_gerente_mostrar")
@@ -367,7 +367,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.tabWidget.setCurrentIndex(1)
+        self.tabWidget.setCurrentIndex(7)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -418,7 +418,7 @@ class Ui_MainWindow(object):
         self.push_empleado_mostrar.setText(QCoreApplication.translate("MainWindow", u"Mostrar", None))
         self.push_empleado_nuevo.setText(QCoreApplication.translate("MainWindow", u"Nuevo", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_4), QCoreApplication.translate("MainWindow", u"Empleados", None))
-        self.purh_gerente_eliminar.setText(QCoreApplication.translate("MainWindow", u"Eliminar seleccionado", None))
+        self.push_gerente_eliminar.setText(QCoreApplication.translate("MainWindow", u"Eliminar seleccionado", None))
         self.push_gerente_mostrar.setText(QCoreApplication.translate("MainWindow", u"Mostrar", None))
         self.push_gerente_nuevo.setText(QCoreApplication.translate("MainWindow", u"Nuevo", None))
         self.push_gerente_buscar.setText(QCoreApplication.translate("MainWindow", u"Buscar", None))

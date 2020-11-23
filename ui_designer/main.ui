@@ -18,7 +18,7 @@
     <item row="0" column="0">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>7</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -364,7 +364,7 @@
        </attribute>
        <layout class="QGridLayout" name="gridLayout_10">
         <item row="2" column="2" colspan="2">
-         <widget class="QPushButton" name="purh_gerente_eliminar">
+         <widget class="QPushButton" name="push_gerente_eliminar">
           <property name="text">
            <string>Eliminar seleccionado</string>
           </property>
