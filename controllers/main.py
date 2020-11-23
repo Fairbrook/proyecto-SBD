@@ -43,6 +43,7 @@ class MainWindow(QMainWindow):
         self.ui.push_editorial_eliminar.clicked.connect(self.onEditorialEliminar)
         self.ui.push_genero_mostrar.clicked.connect(self.onGeneroMostrar)
         self.ui.push_genero_guardar.clicked.connect(self.onGeneroGuardar)
+        self.ui.push_genero_eliminar.clicked.connect(self.onGeneroEliminar)
         self.ui.push_autor_mostrar.clicked.connect(self.onAutorMostrar)
         self.ui.push_autor_guardar.clicked.connect(self.onAutorGuardar)
         self.ui.push_autor_eliminar.clicked.connect(self.onAutorMostrar)
@@ -153,6 +154,11 @@ class MainWindow(QMainWindow):
         cat.save()
         self.ui.edit_genero_nuevo.clear()
 
+    @Slot()
+    def onGeneroEliminar(self):
+        for item in self.ui.table_genero.selectedIndexes():
+            Genero(nombre = self.genero[item.row()]['tipo']).delete()
+        self.onGeneroMostrar()
     @Slot()
     def onGeneroMostrar(self):
         allGenero = self.genero.getAll()
