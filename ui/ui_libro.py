@@ -37,6 +37,7 @@ class Ui_Dialog(object):
 
         self.combo_genero = QComboBox(Dialog)
         self.combo_genero.setObjectName(u"combo_genero")
+        self.combo_genero.setMaxVisibleItems(100)
 
         self.gridLayout.addWidget(self.combo_genero, 3, 4, 1, 1)
 
@@ -47,6 +48,7 @@ class Ui_Dialog(object):
 
         self.combo_editorial = QComboBox(Dialog)
         self.combo_editorial.setObjectName(u"combo_editorial")
+        self.combo_editorial.setMaxVisibleItems(100)
 
         self.gridLayout.addWidget(self.combo_editorial, 1, 4, 1, 1)
 
@@ -92,6 +94,7 @@ class Ui_Dialog(object):
 
         self.combo_autor = QComboBox(Dialog)
         self.combo_autor.setObjectName(u"combo_autor")
+        self.combo_autor.setMaxVisibleItems(100)
 
         self.gridLayout.addWidget(self.combo_autor, 2, 4, 1, 1)
 

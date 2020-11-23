@@ -55,6 +55,7 @@ class LibroWindow(QDialog):
             editorial=editorial,
             autor=autor,
             encuadernacion=encuadernacion,
+            genero=genero,
         )
         libro.save()
         self.done(0)

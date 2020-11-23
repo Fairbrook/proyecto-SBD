@@ -39,30 +39,7 @@
     <string>Nombre</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_3">
-   <property name="geometry">
-    <rect>
-     <x>80</x>
-     <y>54</y>
-     <width>166</width>
-     <height>20</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_5">
-   <property name="geometry">
-    <rect>
-     <x>22</x>
-     <y>80</y>
-     <width>52</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Sucursal</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="lineEdit">
+  <widget class="QLineEdit" name="edit_nombre">
    <property name="geometry">
     <rect>
      <x>80</x>
@@ -72,7 +49,7 @@
     </rect>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_3">
+  <widget class="QPushButton" name="push_cancelar">
    <property name="geometry">
     <rect>
      <x>18</x>
@@ -85,7 +62,7 @@
     <string>Cancelar</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_2">
+  <widget class="QPushButton" name="push_guardar">
    <property name="geometry">
     <rect>
      <x>18</x>
@@ -98,34 +75,11 @@
     <string>Guardar</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_2">
+  <widget class="QLineEdit" name="edit_telefono">
    <property name="geometry">
     <rect>
      <x>80</x>
      <y>28</y>
-     <width>166</width>
-     <height>20</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_4">
-   <property name="geometry">
-    <rect>
-     <x>22</x>
-     <y>54</y>
-     <width>52</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Tipo</string>
-   </property>
-  </widget>
-  <widget class="QComboBox" name="comboBox">
-   <property name="geometry">
-    <rect>
-     <x>80</x>
-     <y>80</y>
      <width>166</width>
      <height>20</height>
     </rect>

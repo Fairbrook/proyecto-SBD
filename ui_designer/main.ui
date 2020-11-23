@@ -18,7 +18,7 @@
     <item row="0" column="0">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>5</number>
+       <number>4</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -220,38 +220,51 @@
        </attribute>
        <layout class="QGridLayout" name="gridLayout_6">
         <item row="0" column="0">
-         <widget class="QLineEdit" name="lineEdit_7"/>
-        </item>
-        <item row="0" column="1">
-         <widget class="QPushButton" name="pushButton_19">
-          <property name="text">
-           <string>Buscar</string>
-          </property>
-         </widget>
+         <widget class="QDateEdit" name="date_venta_buscar"/>
         </item>
         <item row="0" column="2">
-         <widget class="QPushButton" name="pushButton_17">
+         <widget class="QPushButton" name="push_venta_mostrar">
           <property name="text">
            <string>Mostrar</string>
           </property>
          </widget>
         </item>
         <item row="0" column="3">
-         <widget class="QPushButton" name="pushButton_20">
+         <widget class="QPushButton" name="push_venta_nuevo">
           <property name="text">
            <string>Nuevo</string>
           </property>
          </widget>
         </item>
-        <item row="1" column="0" colspan="4">
-         <widget class="QTableView" name="tableView_5"/>
+        <item row="2" column="0">
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>30</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
         </item>
         <item row="2" column="2" colspan="2">
-         <widget class="QPushButton" name="pushButton_18">
+         <widget class="QPushButton" name="push_venta_eliminar">
           <property name="text">
            <string>Eliminar seleccionado</string>
           </property>
          </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QPushButton" name="push_venta_buscar">
+          <property name="text">
+           <string>Buscar</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0" colspan="4">
+         <widget class="QTableWidget" name="table_venta"/>
         </item>
        </layout>
       </widget>
@@ -387,39 +400,43 @@
         <string>Gerentes</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_10">
-        <item row="0" column="0">
-         <widget class="QLineEdit" name="lineEdit_11"/>
-        </item>
-        <item row="0" column="1">
-         <widget class="QPushButton" name="pushButton_35">
+        <item row="2" column="2" colspan="2">
+         <widget class="QPushButton" name="purh_gerente_eliminar">
           <property name="text">
-           <string>Buscar</string>
+           <string>Eliminar seleccionado</string>
           </property>
          </widget>
         </item>
         <item row="0" column="2">
-         <widget class="QPushButton" name="pushButton_33">
+         <widget class="QPushButton" name="push_gerente_mostrar">
           <property name="text">
            <string>Mostrar</string>
           </property>
          </widget>
         </item>
         <item row="0" column="3">
-         <widget class="QPushButton" name="pushButton_36">
+         <widget class="QPushButton" name="push_gerente_nuevo">
           <property name="text">
            <string>Nuevo</string>
           </property>
          </widget>
         </item>
-        <item row="1" column="0" colspan="4">
-         <widget class="QTableView" name="tableView_9"/>
-        </item>
-        <item row="2" column="2" colspan="2">
-         <widget class="QPushButton" name="pushButton_34">
+        <item row="0" column="1">
+         <widget class="QPushButton" name="push_gerente_buscar">
           <property name="text">
-           <string>Eliminar seleccionado</string>
+           <string>Buscar</string>
           </property>
          </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLineEdit" name="edit_gerente_buscar">
+          <property name="placeholderText">
+           <string>Buscar gerente...</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0" colspan="4">
+         <widget class="QTableWidget" name="table_gerente"/>
         </item>
        </layout>
       </widget>
@@ -428,39 +445,43 @@
         <string>Sucursales</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_11">
-        <item row="0" column="0">
-         <widget class="QLineEdit" name="lineEdit_12"/>
-        </item>
-        <item row="0" column="1">
-         <widget class="QPushButton" name="pushButton_39">
-          <property name="text">
-           <string>Buscar</string>
-          </property>
-         </widget>
-        </item>
         <item row="0" column="2">
-         <widget class="QPushButton" name="pushButton_37">
+         <widget class="QPushButton" name="push_sucursal_mostrar">
           <property name="text">
            <string>Mostrar</string>
           </property>
          </widget>
         </item>
+        <item row="0" column="1">
+         <widget class="QPushButton" name="push_sucursal_buscar">
+          <property name="text">
+           <string>Buscar</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="2" colspan="2">
+         <widget class="QPushButton" name="push_sucursal_eliminar">
+          <property name="text">
+           <string>Eliminar seleccionado</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLineEdit" name="edit_sucursal_buscar">
+          <property name="placeholderText">
+           <string>Buscar sucursal..</string>
+          </property>
+         </widget>
+        </item>
         <item row="0" column="3">
-         <widget class="QPushButton" name="pushButton_40">
+         <widget class="QPushButton" name="push_sucursal_nuevo">
           <property name="text">
            <string>Nuevo</string>
           </property>
          </widget>
         </item>
         <item row="1" column="0" colspan="4">
-         <widget class="QTableView" name="tableView_10"/>
-        </item>
-        <item row="2" column="2" colspan="2">
-         <widget class="QPushButton" name="pushButton_38">
-          <property name="text">
-           <string>Eliminar seleccionado</string>
-          </property>
-         </widget>
+         <widget class="QTableWidget" name="table_sucursal"/>
         </item>
        </layout>
       </widget>

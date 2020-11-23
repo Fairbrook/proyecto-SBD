@@ -178,35 +178,39 @@ class Ui_MainWindow(object):
         self.tab_5.setObjectName(u"tab_5")
         self.gridLayout_6 = QGridLayout(self.tab_5)
         self.gridLayout_6.setObjectName(u"gridLayout_6")
-        self.lineEdit_7 = QLineEdit(self.tab_5)
-        self.lineEdit_7.setObjectName(u"lineEdit_7")
+        self.date_venta_buscar = QDateEdit(self.tab_5)
+        self.date_venta_buscar.setObjectName(u"date_venta_buscar")
 
-        self.gridLayout_6.addWidget(self.lineEdit_7, 0, 0, 1, 1)
+        self.gridLayout_6.addWidget(self.date_venta_buscar, 0, 0, 1, 1)
 
-        self.pushButton_19 = QPushButton(self.tab_5)
-        self.pushButton_19.setObjectName(u"pushButton_19")
+        self.push_venta_mostrar = QPushButton(self.tab_5)
+        self.push_venta_mostrar.setObjectName(u"push_venta_mostrar")
 
-        self.gridLayout_6.addWidget(self.pushButton_19, 0, 1, 1, 1)
+        self.gridLayout_6.addWidget(self.push_venta_mostrar, 0, 2, 1, 1)
 
-        self.pushButton_17 = QPushButton(self.tab_5)
-        self.pushButton_17.setObjectName(u"pushButton_17")
+        self.push_venta_nuevo = QPushButton(self.tab_5)
+        self.push_venta_nuevo.setObjectName(u"push_venta_nuevo")
 
-        self.gridLayout_6.addWidget(self.pushButton_17, 0, 2, 1, 1)
+        self.gridLayout_6.addWidget(self.push_venta_nuevo, 0, 3, 1, 1)
 
-        self.pushButton_20 = QPushButton(self.tab_5)
-        self.pushButton_20.setObjectName(u"pushButton_20")
+        self.horizontalSpacer = QSpacerItem(30, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
-        self.gridLayout_6.addWidget(self.pushButton_20, 0, 3, 1, 1)
+        self.gridLayout_6.addItem(self.horizontalSpacer, 2, 0, 1, 1)
 
-        self.tableView_5 = QTableView(self.tab_5)
-        self.tableView_5.setObjectName(u"tableView_5")
+        self.push_venta_eliminar = QPushButton(self.tab_5)
+        self.push_venta_eliminar.setObjectName(u"push_venta_eliminar")
 
-        self.gridLayout_6.addWidget(self.tableView_5, 1, 0, 1, 4)
+        self.gridLayout_6.addWidget(self.push_venta_eliminar, 2, 2, 1, 2)
 
-        self.pushButton_18 = QPushButton(self.tab_5)
-        self.pushButton_18.setObjectName(u"pushButton_18")
+        self.push_venta_buscar = QPushButton(self.tab_5)
+        self.push_venta_buscar.setObjectName(u"push_venta_buscar")
 
-        self.gridLayout_6.addWidget(self.pushButton_18, 2, 2, 1, 2)
+        self.gridLayout_6.addWidget(self.push_venta_buscar, 0, 1, 1, 1)
+
+        self.table_venta = QTableWidget(self.tab_5)
+        self.table_venta.setObjectName(u"table_venta")
+
+        self.gridLayout_6.addWidget(self.table_venta, 1, 0, 1, 4)
 
         self.tabWidget.addTab(self.tab_5, "")
         self.tab_4 = QWidget()
@@ -318,70 +322,70 @@ class Ui_MainWindow(object):
         self.tab_9.setObjectName(u"tab_9")
         self.gridLayout_10 = QGridLayout(self.tab_9)
         self.gridLayout_10.setObjectName(u"gridLayout_10")
-        self.lineEdit_11 = QLineEdit(self.tab_9)
-        self.lineEdit_11.setObjectName(u"lineEdit_11")
+        self.purh_gerente_eliminar = QPushButton(self.tab_9)
+        self.purh_gerente_eliminar.setObjectName(u"purh_gerente_eliminar")
 
-        self.gridLayout_10.addWidget(self.lineEdit_11, 0, 0, 1, 1)
+        self.gridLayout_10.addWidget(self.purh_gerente_eliminar, 2, 2, 1, 2)
 
-        self.pushButton_35 = QPushButton(self.tab_9)
-        self.pushButton_35.setObjectName(u"pushButton_35")
+        self.push_gerente_mostrar = QPushButton(self.tab_9)
+        self.push_gerente_mostrar.setObjectName(u"push_gerente_mostrar")
 
-        self.gridLayout_10.addWidget(self.pushButton_35, 0, 1, 1, 1)
+        self.gridLayout_10.addWidget(self.push_gerente_mostrar, 0, 2, 1, 1)
 
-        self.pushButton_33 = QPushButton(self.tab_9)
-        self.pushButton_33.setObjectName(u"pushButton_33")
+        self.push_gerente_nuevo = QPushButton(self.tab_9)
+        self.push_gerente_nuevo.setObjectName(u"push_gerente_nuevo")
 
-        self.gridLayout_10.addWidget(self.pushButton_33, 0, 2, 1, 1)
+        self.gridLayout_10.addWidget(self.push_gerente_nuevo, 0, 3, 1, 1)
 
-        self.pushButton_36 = QPushButton(self.tab_9)
-        self.pushButton_36.setObjectName(u"pushButton_36")
+        self.push_gerente_buscar = QPushButton(self.tab_9)
+        self.push_gerente_buscar.setObjectName(u"push_gerente_buscar")
 
-        self.gridLayout_10.addWidget(self.pushButton_36, 0, 3, 1, 1)
+        self.gridLayout_10.addWidget(self.push_gerente_buscar, 0, 1, 1, 1)
 
-        self.tableView_9 = QTableView(self.tab_9)
-        self.tableView_9.setObjectName(u"tableView_9")
+        self.edit_gerente_buscar = QLineEdit(self.tab_9)
+        self.edit_gerente_buscar.setObjectName(u"edit_gerente_buscar")
 
-        self.gridLayout_10.addWidget(self.tableView_9, 1, 0, 1, 4)
+        self.gridLayout_10.addWidget(self.edit_gerente_buscar, 0, 0, 1, 1)
 
-        self.pushButton_34 = QPushButton(self.tab_9)
-        self.pushButton_34.setObjectName(u"pushButton_34")
+        self.table_gerente = QTableWidget(self.tab_9)
+        self.table_gerente.setObjectName(u"table_gerente")
 
-        self.gridLayout_10.addWidget(self.pushButton_34, 2, 2, 1, 2)
+        self.gridLayout_10.addWidget(self.table_gerente, 1, 0, 1, 4)
 
         self.tabWidget.addTab(self.tab_9, "")
         self.tab_10 = QWidget()
         self.tab_10.setObjectName(u"tab_10")
         self.gridLayout_11 = QGridLayout(self.tab_10)
         self.gridLayout_11.setObjectName(u"gridLayout_11")
-        self.lineEdit_12 = QLineEdit(self.tab_10)
-        self.lineEdit_12.setObjectName(u"lineEdit_12")
+        self.push_sucursal_mostrar = QPushButton(self.tab_10)
+        self.push_sucursal_mostrar.setObjectName(u"push_sucursal_mostrar")
 
-        self.gridLayout_11.addWidget(self.lineEdit_12, 0, 0, 1, 1)
+        self.gridLayout_11.addWidget(self.push_sucursal_mostrar, 0, 2, 1, 1)
 
-        self.pushButton_39 = QPushButton(self.tab_10)
-        self.pushButton_39.setObjectName(u"pushButton_39")
+        self.push_sucursal_buscar = QPushButton(self.tab_10)
+        self.push_sucursal_buscar.setObjectName(u"push_sucursal_buscar")
 
-        self.gridLayout_11.addWidget(self.pushButton_39, 0, 1, 1, 1)
+        self.gridLayout_11.addWidget(self.push_sucursal_buscar, 0, 1, 1, 1)
 
-        self.pushButton_37 = QPushButton(self.tab_10)
-        self.pushButton_37.setObjectName(u"pushButton_37")
+        self.push_sucursal_eliminar = QPushButton(self.tab_10)
+        self.push_sucursal_eliminar.setObjectName(u"push_sucursal_eliminar")
 
-        self.gridLayout_11.addWidget(self.pushButton_37, 0, 2, 1, 1)
+        self.gridLayout_11.addWidget(self.push_sucursal_eliminar, 2, 2, 1, 2)
 
-        self.pushButton_40 = QPushButton(self.tab_10)
-        self.pushButton_40.setObjectName(u"pushButton_40")
+        self.edit_sucursal_buscar = QLineEdit(self.tab_10)
+        self.edit_sucursal_buscar.setObjectName(u"edit_sucursal_buscar")
 
-        self.gridLayout_11.addWidget(self.pushButton_40, 0, 3, 1, 1)
+        self.gridLayout_11.addWidget(self.edit_sucursal_buscar, 0, 0, 1, 1)
 
-        self.tableView_10 = QTableView(self.tab_10)
-        self.tableView_10.setObjectName(u"tableView_10")
+        self.push_sucursal_nuevo = QPushButton(self.tab_10)
+        self.push_sucursal_nuevo.setObjectName(u"push_sucursal_nuevo")
 
-        self.gridLayout_11.addWidget(self.tableView_10, 1, 0, 1, 4)
+        self.gridLayout_11.addWidget(self.push_sucursal_nuevo, 0, 3, 1, 1)
 
-        self.pushButton_38 = QPushButton(self.tab_10)
-        self.pushButton_38.setObjectName(u"pushButton_38")
+        self.table_sucursal = QTableWidget(self.tab_10)
+        self.table_sucursal.setObjectName(u"table_sucursal")
 
-        self.gridLayout_11.addWidget(self.pushButton_38, 2, 2, 1, 2)
+        self.gridLayout_11.addWidget(self.table_sucursal, 1, 0, 1, 4)
 
         self.tabWidget.addTab(self.tab_10, "")
 
@@ -398,7 +402,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.tabWidget.setCurrentIndex(5)
+        self.tabWidget.setCurrentIndex(4)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -432,10 +436,10 @@ class Ui_MainWindow(object):
         self.edit_genero_nuevo.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Nuevo Genero..", None))
         self.push_genero_guardar.setText(QCoreApplication.translate("MainWindow", u"Guardar", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_8), QCoreApplication.translate("MainWindow", u"Genero", None))
-        self.pushButton_19.setText(QCoreApplication.translate("MainWindow", u"Buscar", None))
-        self.pushButton_17.setText(QCoreApplication.translate("MainWindow", u"Mostrar", None))
-        self.pushButton_20.setText(QCoreApplication.translate("MainWindow", u"Nuevo", None))
-        self.pushButton_18.setText(QCoreApplication.translate("MainWindow", u"Eliminar seleccionado", None))
+        self.push_venta_mostrar.setText(QCoreApplication.translate("MainWindow", u"Mostrar", None))
+        self.push_venta_nuevo.setText(QCoreApplication.translate("MainWindow", u"Nuevo", None))
+        self.push_venta_eliminar.setText(QCoreApplication.translate("MainWindow", u"Eliminar seleccionado", None))
+        self.push_venta_buscar.setText(QCoreApplication.translate("MainWindow", u"Buscar", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_5), QCoreApplication.translate("MainWindow", u"Ventas", None))
         self.edit_empleado_buscar.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Buscar empleado...", None))
         self.push_empleado_buscar.setText(QCoreApplication.translate("MainWindow", u"Buscar", None))
@@ -453,15 +457,17 @@ class Ui_MainWindow(object):
         self.pushButton_32.setText(QCoreApplication.translate("MainWindow", u"Nuevo", None))
         self.pushButton_30.setText(QCoreApplication.translate("MainWindow", u"Eliminar seleccionado", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_6), QCoreApplication.translate("MainWindow", u"Clientes", None))
-        self.pushButton_35.setText(QCoreApplication.translate("MainWindow", u"Buscar", None))
-        self.pushButton_33.setText(QCoreApplication.translate("MainWindow", u"Mostrar", None))
-        self.pushButton_36.setText(QCoreApplication.translate("MainWindow", u"Nuevo", None))
-        self.pushButton_34.setText(QCoreApplication.translate("MainWindow", u"Eliminar seleccionado", None))
+        self.purh_gerente_eliminar.setText(QCoreApplication.translate("MainWindow", u"Eliminar seleccionado", None))
+        self.push_gerente_mostrar.setText(QCoreApplication.translate("MainWindow", u"Mostrar", None))
+        self.push_gerente_nuevo.setText(QCoreApplication.translate("MainWindow", u"Nuevo", None))
+        self.push_gerente_buscar.setText(QCoreApplication.translate("MainWindow", u"Buscar", None))
+        self.edit_gerente_buscar.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Buscar gerente...", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_9), QCoreApplication.translate("MainWindow", u"Gerentes", None))
-        self.pushButton_39.setText(QCoreApplication.translate("MainWindow", u"Buscar", None))
-        self.pushButton_37.setText(QCoreApplication.translate("MainWindow", u"Mostrar", None))
-        self.pushButton_40.setText(QCoreApplication.translate("MainWindow", u"Nuevo", None))
-        self.pushButton_38.setText(QCoreApplication.translate("MainWindow", u"Eliminar seleccionado", None))
+        self.push_sucursal_mostrar.setText(QCoreApplication.translate("MainWindow", u"Mostrar", None))
+        self.push_sucursal_buscar.setText(QCoreApplication.translate("MainWindow", u"Buscar", None))
+        self.push_sucursal_eliminar.setText(QCoreApplication.translate("MainWindow", u"Eliminar seleccionado", None))
+        self.edit_sucursal_buscar.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Buscar sucursal..", None))
+        self.push_sucursal_nuevo.setText(QCoreApplication.translate("MainWindow", u"Nuevo", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_10), QCoreApplication.translate("MainWindow", u"Sucursales", None))
     # retranslateUi
 

@@ -11,7 +11,8 @@ class Libro:
                  encuadernacion='',
                  publicacion='',
                  autor='',
-                 editorial=''
+                 editorial='',
+                 genero=''
                  ):
         self.titulo = titulo
         self.codigo = codigo
@@ -22,6 +23,7 @@ class Libro:
         self.publicacion = publicacion
         self.autor = autor
         self.editorial = editorial
+        self.genero = genero
         self.conn = Connection()
 
     def save(self):
@@ -35,8 +37,9 @@ class Libro:
             encuadernacion, 
             publicacion, 
             autor, 
-            editorial) 
-        values (%s, %s, %s, %s, %s, %s, %s, %s, %s);
+            editorial,
+            genero) 
+        values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
         """,
                           (self.titulo,
                            self.codigo,
@@ -46,7 +49,8 @@ class Libro:
                            self.encuadernacion,
                            self.publicacion,
                            self.autor,
-                           self.editorial))
+                           self.editorial,
+                           self.genero))
 
     def getAll(self):
         return self.conn.query("""
@@ -58,6 +62,7 @@ class Libro:
         encuadernacion,
         publicacion,
         editorial,
+        genero,
         autor.nombre as autor
          from libro inner join autor on libro.autor = autor.codigo;
         """)

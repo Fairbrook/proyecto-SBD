@@ -28,7 +28,11 @@
     <widget class="QLineEdit" name="edit_encuadernacion"/>
    </item>
    <item row="3" column="4">
-    <widget class="QComboBox" name="combo_genero"/>
+    <widget class="QComboBox" name="combo_genero">
+     <property name="maxVisibleItems">
+      <number>100</number>
+     </property>
+    </widget>
    </item>
    <item row="1" column="3">
     <widget class="QLabel" name="label_5">
@@ -38,7 +42,11 @@
     </widget>
    </item>
    <item row="1" column="4">
-    <widget class="QComboBox" name="combo_editorial"/>
+    <widget class="QComboBox" name="combo_editorial">
+     <property name="maxVisibleItems">
+      <number>100</number>
+     </property>
+    </widget>
    </item>
    <item row="5" column="4">
     <widget class="QPushButton" name="push_guardar">
@@ -89,7 +97,11 @@
     </widget>
    </item>
    <item row="2" column="4">
-    <widget class="QComboBox" name="combo_autor"/>
+    <widget class="QComboBox" name="combo_autor">
+     <property name="maxVisibleItems">
+      <number>100</number>
+     </property>
+    </widget>
    </item>
    <item row="5" column="3">
     <widget class="QPushButton" name="push_cancelar">
