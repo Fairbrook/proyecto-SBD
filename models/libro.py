@@ -24,6 +24,7 @@ class Libro:
         self.autor = autor
         self.editorial = editorial
         self.genero = genero
+        self._key = codigo
         self.conn = Connection()
 
     def save(self):
@@ -70,6 +71,7 @@ class Libro:
     def update(self):
         self.conn.noQuery("""
         update libro set 
+            codigo = %s,
             titulo = %s, 
             precio = %s, 
             isbn = %s, 
@@ -81,7 +83,8 @@ class Libro:
             genero = %s
         where codigo = %s;
         """,
-                          (self.titulo,
+                          (self.codigo,
+                           self.titulo,
                            self.precio,
                            self.isbn,
                            self.idioma,
@@ -89,9 +92,9 @@ class Libro:
                            self.publicacion,
                            self.autor,
                            self.editorial,
-                          self.genero,
-                           self.codigo))
+                           self.genero,
+                           self._key))
 
     def delete(self):
-        self.conn.noQuery("delete from libro where codigo = %s", (self.codigo,))
-
+        self.conn.noQuery(
+            "delete from libro where codigo = %s", (self.codigo,))

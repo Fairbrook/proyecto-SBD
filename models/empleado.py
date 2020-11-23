@@ -2,12 +2,13 @@ from .connection import Connection
 
 
 class Empleado:
-    def __init__(self, nombre='', telefono='', sucursal='', tipo='', supervisor=''):
+    def __init__(self, nombre='', telefono='', sucursal='', tipo='', supervisor='', codigo=''):
         self.nombre = nombre
         self.telefono = telefono
         self.sucursal = sucursal
         self.tipo = tipo
         self.supervisor = supervisor
+        self._key = codigo
         self.conn = Connection()
 
     def save(self):
@@ -21,8 +22,22 @@ class Empleado:
             tipo, 
             empleado.telefono as telefono,
             sucursal,
-            supervisor.nombre as supervisor 
+            supervisor.nombre as supervisor,
+            empleado.supervisor as supervisor_id
             from empleado inner join supervisor on empleado.supervisor = supervisor.codigo;
         """,)
+
+    def update(self):
+        self.conn.noQuery("""
+                            update empleado set nombre = %s,
+                            telefono = %s, 
+                            tipo = %s, 
+                            sucursal = %s, 
+                            supervisor =%s
+                            where codigo = %s;
+                        """,
+                          (self.nombre, self.telefono, self.tipo, self.sucursal, self.supervisor, self._key))
+
     def delete(self):
-        self.conn.noQuery("delete from empleado where codigo = %s", (self.codigo,))
+        self.conn.noQuery(
+            "delete from empleado where codigo = %s", (self._key,))

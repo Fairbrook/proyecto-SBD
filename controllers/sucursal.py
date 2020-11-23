@@ -5,13 +5,19 @@ from models.sucursal import Sucursal
 
 
 class SucursalWindow(QDialog):
-    def __init__(self):
+    def __init__(self, sucursal=None):
         super(SucursalWindow, self).__init__()
         self.ui = Ui_Dialog()
         self.ui.setupUi(self)
+        self.sucursal = sucursal
 
         self.ui.push_cancelar.clicked.connect(self.onClose)
         self.ui.push_guardar.clicked.connect(self.onSave)
+
+        if sucursal is not None:
+            self.ui.edit_nombre.setText(sucursal['nombre'])
+            self.ui.edit_telefono.setText(sucursal['telefono'])
+            self.ui.edit_direccion.setText(sucursal['direccion'])
 
     @Slot()
     def onClose(self):
@@ -27,5 +33,9 @@ class SucursalWindow(QDialog):
             telefono=telefono,
             direccion=direccion,
         )
-        sucursal.save()
+        if self.sucursal is None:
+            sucursal.save()
+        else:
+            sucursal._key=self.sucursal['nombre']
+            sucursal.update()
         self.done(0)

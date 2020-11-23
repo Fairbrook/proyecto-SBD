@@ -30,5 +30,6 @@ class EditorialWindow(QDialog):
         if self.editorial is None:
             editorial.save()
         else:
+            editorial._key = self.editorial['nombre']
             editorial.update()
         self.done(0)

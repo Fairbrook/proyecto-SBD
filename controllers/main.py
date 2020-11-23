@@ -1,5 +1,6 @@
-from PySide2.QtWidgets import QMainWindow, QFileDialog, QMessageBox, QTableWidgetItem, QGraphicsScene
+from PySide2.QtWidgets import QMainWindow, QFileDialog, QMessageBox, QTableWidgetItem, QGraphicsScene, QAbstractItemView, QMessageBox
 from ui.ui_main import Ui_MainWindow
+from psycopg2.errors import ForeignKeyViolation
 from PySide2.QtCore import Slot
 from .editorial import EditorialWindow
 from .libro import LibroWindow
@@ -60,7 +61,7 @@ class MainWindow(QMainWindow):
             self.onSupervisorEliminar)
         self.ui.push_empleado_nuevo.clicked.connect(self.onEmpleadoNuevo)
         self.ui.push_empleado_mostrar.clicked.connect(self.onEmpleadoMostrar)
-        self.ui.push_editorial_eliminar.clicked.connect(
+        self.ui.push_empleado_eliminar.clicked.connect(
             self.onEmpleadoEliminar)
         self.ui.push_venta_nuevo.clicked.connect(self.onVentaNuevo)
         self.ui.push_venta_mostrar.clicked.connect(self.onVentaMostrar)
@@ -72,6 +73,27 @@ class MainWindow(QMainWindow):
         # double clicks
         self.ui.table_libro.doubleClicked.connect(self.onLibroEdit)
         self.ui.table_editorial.doubleClicked.connect(self.onEditorialEdit)
+        self.ui.table_existencia.doubleClicked.connect(self.onExistenciaEdit)
+        self.ui.table_empleado.doubleClicked.connect(self.onEmpleadoEdit)
+        self.ui.table_gerente.doubleClicked.connect(self.onGerenteEdit)
+        self.ui.table_sucursal.doubleClicked.connect(self.onSucursalEdit)
+
+        # no edit
+        self.ui.table_editorial.setEditTriggers(
+            QAbstractItemView.NoEditTriggers)
+        self.ui.table_libro.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.ui.table_venta.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.ui.table_existencia.setEditTriggers(
+            QAbstractItemView.NoEditTriggers)
+        self.ui.table_empleado.setEditTriggers(
+            QAbstractItemView.NoEditTriggers)
+        self.ui.table_gerente.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.ui.table_sucursal.setEditTriggers(
+            QAbstractItemView.NoEditTriggers)
+
+        # edit
+        self.ui.table_autor.itemChanged.connect(self.onAutorChange)
+        self.ui.table_genero.itemChanged.connect(self.onGeneroChange)
 
     @Slot()
     def onEditorialNuevo(self):
@@ -103,7 +125,7 @@ class MainWindow(QMainWindow):
     def onSupervisorEliminar(self):
         for item in self.ui.table_gerente.selectedIndexes():
             supervisor = Supervisor()
-            supervisor.codigo=self.supervisores[item.row()]['codigo']
+            supervisor.codigo = self.supervisores[item.row()]['codigo']
             supervisor.delete()
             self.onSupervisorMostrar()
 
@@ -116,9 +138,16 @@ class MainWindow(QMainWindow):
     def onEmpleadoEliminar(self):
         for item in self.ui.table_empleado.selectedIndexes():
             empleado = Empleado()
-            empleado.codigo = self.empleados[item.row()]['codigo']
-            empleado.delete()
-            self.onEmpleadoMostrar()
+            empleado._key = self.empleados[item.row()]['codigo']
+            try:
+                empleado.delete()
+                self.onEmpleadoMostrar()
+            except ForeignKeyViolation:
+                QMessageBox.warning(
+                    self,
+                    "Atención",
+                    f'El empleado "{empleado._key}" no puede eliminarse'
+                )
 
     @Slot()
     def onVentaNuevo(self):
@@ -170,11 +199,13 @@ class MainWindow(QMainWindow):
     @Slot()
     def onGeneroEliminar(self):
         for item in self.ui.table_genero.selectedIndexes():
-            Genero(nombre = self.genero[item.row()]['tipo']).delete()
+            Genero(tipo=self.generos[item.row()]['tipo']).delete()
         self.onGeneroMostrar()
+
     @Slot()
     def onGeneroMostrar(self):
         allGenero = self.genero.getAll()
+        self.generos = allGenero
         headers = ['Tipo']
         self.ui.table_genero.setRowCount(len(allGenero))
         self.ui.table_genero.setColumnCount(len(headers))
@@ -193,6 +224,7 @@ class MainWindow(QMainWindow):
     @Slot()
     def onAutorMostrar(self):
         all = self.autor.getAll()
+        self.autores = all
         headers = ['Nombre']
         self.ui.table_autor.setRowCount(len(all))
         self.ui.table_autor.setColumnCount(len(headers))
@@ -320,6 +352,7 @@ class MainWindow(QMainWindow):
     @Slot()
     def onExistenciaMostrar(self):
         all = self.existencia.getAll()
+        self.existencias = all
         headers = ['Libro', 'Sucursal', 'Existencia']
         self.ui.table_existencia.setRowCount(len(all))
         self.ui.table_existencia.setColumnCount(len(headers))
@@ -337,8 +370,50 @@ class MainWindow(QMainWindow):
     def onLibroEdit(self, item):
         window = LibroWindow(self.libros[item.row()])
         window.exec_()
+        self.onLibroMostrar()
 
     @Slot()
     def onEditorialEdit(self, item):
         window = EditorialWindow(self.editoriales[item.row()])
         window.exec_()
+        self.onEditorialMostrar()
+
+    @Slot()
+    def onExistenciaEdit(self, item):
+        window = ExistenciaWindow(self.existencias[item.row()])
+        window.exec_()
+        self.onExistenciaMostrar()
+
+    @Slot()
+    def onGerenteEdit(self, item):
+        window = SupervisorWindow(self.supervisores[item.row()])
+        window.exec_()
+        self.onSupervisorMostrar()
+
+    @Slot()
+    def onAutorChange(self, item):
+        autor = Autor(self.autores[item.row()]['nombre'])
+        if autor.nombre != item.text():
+            autor.nombre = item.text()
+            autor.update()
+            self.onAutorMostrar()
+
+    @Slot()
+    def onEmpleadoEdit(self, item):
+        window = EmpleadoWindow(self.empleados[item.row()])
+        window.exec_()
+        self.onEmpleadoMostrar()
+
+    @Slot()
+    def onSucursalEdit(self, item):
+        window = SucursalWindow(self.sucursales[item.row()])
+        window.exec_()
+        self.onSucursalMostrar()
+
+    @Slot()
+    def onGeneroChange(self, item):
+        genero = Genero(self.generos[item.row()]['tipo'])
+        if genero.tipo != item.text():
+            genero.tipo = item.text()
+            genero.update()
+            self.onGeneroMostrar()

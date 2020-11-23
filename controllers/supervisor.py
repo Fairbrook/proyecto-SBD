@@ -5,13 +5,19 @@ from models.supervisor import Supervisor
 
 
 class SupervisorWindow(QDialog):
-    def __init__(self):
+    def __init__(self, supervisor = None):
         super(SupervisorWindow, self).__init__()
         self.ui = Ui_Dialog()
         self.ui.setupUi(self)
+        self.supervisor = supervisor
 
         self.ui.push_cancelar.clicked.connect(self.onClose)
         self.ui.push_guardar.clicked.connect(self.onSave)
+
+        if supervisor is not None:
+            self.ui.edit_nombre.setText(supervisor['nombre'])
+            self.ui.edit_telefono.setText(supervisor['telefono'])
+
 
     @Slot()
     def onClose(self):
@@ -25,5 +31,9 @@ class SupervisorWindow(QDialog):
             nombre=nombre,
             telefono=telefono,
         )
-        supervisor.save()
+        if self.supervisor is None:
+            supervisor.save()
+        else:
+            supervisor._key = self.supervisor['codigo']
+            supervisor.update()
         self.done(0)

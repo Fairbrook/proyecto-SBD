@@ -6,6 +6,7 @@ class Sucursal:
         self.nombre = nombre
         self.telefono = telefono
         self.direccion = direccion
+        self._key = nombre
         self.conn = Connection()
 
     def save(self):
@@ -15,6 +16,12 @@ class Sucursal:
     def getAll(self):
         return self.conn.query('select * from sucursal;')
 
+    def update(self):
+        self.conn.noQuery("update sucursal set nombre=%s, telefono=%s, direccion=%s where nombre=%s",
+                          (self.nombre, self.telefono, self.direccion, self._key))
+
     def delete(self):
-        self.conn.noQuery("delete from libro_sucursal where sucursal = %s", (self.nombre,))
-        self.conn.noQuery("delete from sucursal where nombre = %s", (self.nombre,))
+        self.conn.noQuery(
+            "delete from libro_sucursal where sucursal = %s", (self.nombre,))
+        self.conn.noQuery(
+            "delete from sucursal where nombre = %s", (self.nombre,))

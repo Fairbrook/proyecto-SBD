@@ -7,10 +7,11 @@ from models.libro_sucursal import LibroSucursal
 
 
 class ExistenciaWindow(QDialog):
-    def __init__(self):
+    def __init__(self, existencia = None):
         super(ExistenciaWindow, self).__init__()
         self.ui = Ui_Dialog()
         self.ui.setupUi(self)
+        self.existencia = existencia
 
         self.ui.push_cancelar.clicked.connect(self.onClose)
         self.ui.push_guardar.clicked.connect(self.onSave)
@@ -22,7 +23,14 @@ class ExistenciaWindow(QDialog):
             self.ui.combo_sucursal.addItem(sucursal['nombre'])
 
         for libro in self.libros:
-            self.ui.combo_libro.addItem(libro['titulo'])
+            self.ui.combo_libro.addItem(libro['titulo'], libro['codigo'])
+
+        if existencia is not None:
+            index = self.ui.combo_sucursal.findText(self.existencia['sucursal'])
+            self.ui.combo_sucursal.setCurrentIndex(index)
+            index = self.ui.combo_libro.findData(self.existencia['libro_id'])
+            self.ui.combo_libro.setCurrentIndex(index)
+            self.ui.spin_cantidad.setValue(existencia['existencia'])
 
     @Slot()
     def onClose(self):
@@ -34,5 +42,9 @@ class ExistenciaWindow(QDialog):
         sucursal = self.ui.combo_sucursal.currentText()
         cantidad = self.ui.spin_cantidad.value()
         registro = LibroSucursal( sucursal=sucursal, libro=libro, existencia=cantidad)
-        registro.save()
+        if self.existencia is not None:
+            registro._key[0]=self.existencia['libro_id']
+            registro.update()
+        else:
+            registro.save()
         self.done(0)

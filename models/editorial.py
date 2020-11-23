@@ -5,6 +5,7 @@ class Editorial:
     def __init__(self, nombre='', pais=''):
         self.nombre = nombre
         self.paisorigen = pais
+        self._key = nombre
         self.conn = Connection()
 
     def save(self):
@@ -18,4 +19,4 @@ class Editorial:
         self.conn.noQuery("delete from editorial where nombre = %s", (self.nombre,))
 
     def update(self):
-        self.conn.noQuery("update editorial set nombre=%s, paisorigen=%s where nombre=%s",(self.nombre, self.paisorigen, self.nombre))
+        self.conn.noQuery("update editorial set nombre=%s, paisorigen=%s where nombre=%s",(self.nombre, self.paisorigen, self._key))

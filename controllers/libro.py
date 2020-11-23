@@ -76,6 +76,7 @@ class LibroWindow(QDialog):
         if self.libro is None:
             libro.save()
         else:
+            libro._key=self.libro['codigo']
             libro.update()
         self.done(0)
 

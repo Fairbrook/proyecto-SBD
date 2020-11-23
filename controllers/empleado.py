@@ -7,10 +7,11 @@ from models.supervisor import Supervisor
 
 
 class EmpleadoWindow(QDialog):
-    def __init__(self):
+    def __init__(self, empleado = None):
         super(EmpleadoWindow, self).__init__()
         self.ui = Ui_Dialog()
         self.ui.setupUi(self)
+        self.empleado = empleado
 
         self.ui.push_cancelar.clicked.connect(self.onClose)
         self.ui.push_guardar.clicked.connect(self.onSave)
@@ -27,7 +28,16 @@ class EmpleadoWindow(QDialog):
             self.ui.combo_sucursal.addItem(sucursal['nombre'])
 
         for supervisor in self.supervisores:
-            self.ui.combo_supervisor.addItem(supervisor['nombre'])
+            self.ui.combo_supervisor.addItem(supervisor['nombre'], supervisor['codigo'])
+
+        if empleado is not None:
+            print(empleado)
+            self.ui.edit_nombre.setText(empleado['nombre'])
+            self.ui.edit_telefono.setText(empleado['telefono'])
+            index = self.ui.combo_sucursal.findText(empleado['sucursal'])
+            self.ui.combo_sucursal.setCurrentIndex(index)
+            index = self.ui.combo_supervisor.findData(empleado['supervisor_id'])
+            self.ui.combo_sucursal.setCurrentIndex(index)
 
     @Slot()
     def onClose(self):
@@ -37,9 +47,13 @@ class EmpleadoWindow(QDialog):
     def onSave(self):
         nombre = self.ui.edit_nombre.text()
         telefono = self.ui.edit_telefono.text()
-        supervisor = self.supervisores[self.ui.combo_supervisor.currentIndex()]['codigo']
+        supervisor = self.ui.combo_supervisor.currentData()
         sucursal = self.ui.combo_sucursal.currentText()
         tipo = self.ui.combo_tipo.currentText()
         empleado = Empleado(nombre=nombre, telefono=telefono, supervisor=supervisor, sucursal=sucursal, tipo=tipo)
-        empleado.save()
+        if self.empleado is None:
+            empleado.save()
+        else:
+            empleado._key = self.empleado['codigo']
+            empleado.update()
         self.done(0)
