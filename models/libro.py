@@ -91,3 +91,7 @@ class Libro:
                            self.editorial,
                           self.genero,
                            self.codigo))
+
+    def delete(self):
+        self.conn.noQuery("delete from libro where codigo = %s", (self.codigo,))
+

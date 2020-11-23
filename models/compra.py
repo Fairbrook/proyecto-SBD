@@ -25,3 +25,8 @@ class Compra:
                 group by compra.folio, empleado.nombre
                 order by fecha;
                 """)
+
+
+    def delete(self):
+        self.conn.noQuery("delete from libro_compra where folio where compra.folio =%s",(self.folio,))
+        self.conn.noQuery("delete from compra where folio = %s", (self.folio,))
