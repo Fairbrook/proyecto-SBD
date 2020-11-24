@@ -1,7 +1,7 @@
 from PySide2.QtWidgets import QMainWindow, QFileDialog, QMessageBox, QTableWidgetItem, QGraphicsScene, QAbstractItemView, QMessageBox
 from ui.ui_main import Ui_MainWindow
 from psycopg2.errors import ForeignKeyViolation
-from PySide2.QtCore import Slot
+from PySide2.QtCore import Slot, Signal, QThread
 from .editorial import EditorialWindow
 from .libro import LibroWindow
 from .sucursal import SucursalWindow
@@ -18,9 +18,16 @@ from models.supervisor import Supervisor
 from models.empleado import Empleado
 from models.compra import Compra
 from models.libro_sucursal import LibroSucursal
+from models.connection import Connection
+from .notify import Worker
+import select
+import time
 
 
 class MainWindow(QMainWindow):
+    showMessageBox = Signal(str)
+    exitThread = Signal()
+
     def __init__(self):
         super(MainWindow, self).__init__()
 
@@ -38,12 +45,24 @@ class MainWindow(QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
+        self.exit = False
+        self.showMessageBox.connect(self.onNotify)
+        self.exitThread.connect(self.customExit)
+        self.canExit = False
+
+        self.worker = Worker(self, 'existencias')
+        self.thread = QThread()
+        self.worker.moveToThread(self.thread)
+        self.thread.started.connect(self.worker._listener)
+        self.thread.start()
+
         # connections
         self.ui.push_editorial_nuevo.clicked.connect(self.onEditorialNuevo)
         self.ui.push_editorial_mostrar.clicked.connect(self.onEditorialMostrar)
-        self.ui.push_editorial_eliminar.clicked.connect(self.onEditorialEliminar)
+        self.ui.push_editorial_eliminar.clicked.connect(
+            self.onEditorialEliminar)
         self.ui.push_editorial_buscar.clicked.connect(self.onEditorialBuscar)
-        
+
         self.ui.push_genero_mostrar.clicked.connect(self.onGeneroMostrar)
         self.ui.push_genero_guardar.clicked.connect(self.onGeneroGuardar)
         self.ui.push_genero_eliminar.clicked.connect(self.onGeneroEliminar)
@@ -66,7 +85,8 @@ class MainWindow(QMainWindow):
 
         self.ui.push_gerente_nuevo.clicked.connect(self.onSupervisorNuevo)
         self.ui.push_gerente_mostrar.clicked.connect(self.onSupervisorMostrar)
-        self.ui.push_gerente_eliminar.clicked.connect( self.onSupervisorEliminar)
+        self.ui.push_gerente_eliminar.clicked.connect(
+            self.onSupervisorEliminar)
         self.ui.push_gerente_buscar.clicked.connect(self.onSupervisorBuscar)
 
         self.ui.push_empleado_nuevo.clicked.connect(self.onEmpleadoNuevo)
@@ -80,7 +100,8 @@ class MainWindow(QMainWindow):
         self.ui.push_venta_buscar.clicked.connect(self.onVentaBuscar)
 
         self.ui.push_existencia_nuevo.clicked.connect(self.onExistenciaNuevo)
-        self.ui.push_existencia_mostrar.clicked.connect(self.onExistenciaMostrar)
+        self.ui.push_existencia_mostrar.clicked.connect(
+            self.onExistenciaMostrar)
         self.ui.push_existencia_buscar.clicked.connect(self.onExistenciaBuscar)
 
         # double clicks
@@ -284,7 +305,8 @@ class MainWindow(QMainWindow):
         self.setEmpleados()
 
     def setEmpleados(self):
-        headers = ['Código', 'Nombre', 'Telefono', 'Tipo', 'Supervisor', 'Sucursal']
+        headers = ['Código', 'Nombre', 'Telefono',
+                   'Tipo', 'Supervisor', 'Sucursal']
         self.ui.table_empleado.setRowCount(len(self.empleados))
         self.ui.table_empleado.setColumnCount(len(headers))
         self.ui.table_empleado.setHorizontalHeaderLabels(headers)
@@ -369,8 +391,8 @@ class MainWindow(QMainWindow):
 
     @Slot()
     def onAutorChange(self, item):
-        autor = Autor(nombre = self.autores[item.row()]['nombre'], 
-        codigo = self.autores[item.row()]['codigo'])
+        autor = Autor(nombre=self.autores[item.row()]['nombre'],
+                      codigo=self.autores[item.row()]['codigo'])
         if autor.nombre != item.text():
             autor.nombre = item.text()
             autor.update()
@@ -499,10 +521,11 @@ class MainWindow(QMainWindow):
                 )
             self.onSupervisorMostrar()
 
-    #Buscar
+    # Buscar
     @Slot()
     def onVentaBuscar(self):
-        self.ventas = self.venta.search(self.ui.date_venta_buscar.date().toPython())
+        self.ventas = self.venta.search(
+            self.ui.date_venta_buscar.date().toPython())
         self.setVentas()
 
     @Slot()
@@ -510,7 +533,7 @@ class MainWindow(QMainWindow):
         self.existencias = self.existencia.search(
             self.ui.edit_existencia_buscar.text())
         self.setExistencias()
-    
+
     @Slot()
     def onGeneroBuscar(self):
         self.generos = self.genero.search(self.ui.edit_genero_buscar.text())
@@ -523,7 +546,8 @@ class MainWindow(QMainWindow):
 
     @Slot()
     def onEditorialBuscar(self):
-        self.editoriales = self.editorial.search(self.ui.edit_editorial_buscar.text())
+        self.editoriales = self.editorial.search(
+            self.ui.edit_editorial_buscar.text())
         self.setAutores()
 
     @Slot()
@@ -533,7 +557,8 @@ class MainWindow(QMainWindow):
 
     @Slot()
     def onSucursalBuscar(self):
-        self.sucursales = self.sucursal.search(self.ui.edit_sucursal_buscar.text())
+        self.sucursales = self.sucursal.search(
+            self.ui.edit_sucursal_buscar.text())
         self.setSucursales()
 
     @Slot()
@@ -544,5 +569,26 @@ class MainWindow(QMainWindow):
 
     @Slot()
     def onEmpleadoBuscar(self):
-        self.empleados = self.empleado.search(self.ui.edit_empleado_buscar.text())
+        self.empleados = self.empleado.search(
+            self.ui.edit_empleado_buscar.text())
         self.setEmpleados()
+
+    @Slot(str)
+    def onNotify(self, data):
+        QMessageBox.warning(
+            self,
+            "Atención",
+            data
+        )
+
+    @Slot()
+    def customExit(self):
+        self.canExit = True
+        self.close()
+
+    def closeEvent(self, event):
+        self.exit = True
+        if self.canExit == True:
+            event.accept()
+        else:
+            event.ignore()
