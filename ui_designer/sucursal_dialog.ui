@@ -108,6 +108,19 @@
     <string>Direccion</string>
    </property>
   </widget>
+  <widget class="QCheckBox" name="checkBox">
+   <property name="geometry">
+    <rect>
+     <x>80</x>
+     <y>100</y>
+     <width>70</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Activo</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>
