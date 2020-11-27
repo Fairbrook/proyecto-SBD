@@ -75,16 +75,31 @@ class Ui_Dialog(object):
         self.push_cancelar = QPushButton(Dialog)
         self.push_cancelar.setObjectName(u"push_cancelar")
 
-        self.formLayout.setWidget(6, QFormLayout.SpanningRole, self.push_cancelar)
+        self.formLayout.setWidget(8, QFormLayout.SpanningRole, self.push_cancelar)
 
         self.push_guardar = QPushButton(Dialog)
         self.push_guardar.setObjectName(u"push_guardar")
 
-        self.formLayout.setWidget(7, QFormLayout.SpanningRole, self.push_guardar)
+        self.formLayout.setWidget(9, QFormLayout.SpanningRole, self.push_guardar)
 
         self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
 
-        self.formLayout.setItem(5, QFormLayout.LabelRole, self.verticalSpacer)
+        self.formLayout.setItem(7, QFormLayout.LabelRole, self.verticalSpacer)
+
+        self.checkBox = QCheckBox(Dialog)
+        self.checkBox.setObjectName(u"checkBox")
+
+        self.formLayout.setWidget(6, QFormLayout.FieldRole, self.checkBox)
+
+        self.edit_direccion = QLineEdit(Dialog)
+        self.edit_direccion.setObjectName(u"edit_direccion")
+
+        self.formLayout.setWidget(5, QFormLayout.FieldRole, self.edit_direccion)
+
+        self.label = QLabel(Dialog)
+        self.label.setObjectName(u"label")
+
+        self.formLayout.setWidget(5, QFormLayout.LabelRole, self.label)
 
 
         self.retranslateUi(Dialog)
@@ -101,5 +116,7 @@ class Ui_Dialog(object):
         self.label_6.setText(QCoreApplication.translate("Dialog", u"Sucursal", None))
         self.push_cancelar.setText(QCoreApplication.translate("Dialog", u"Cancelar", None))
         self.push_guardar.setText(QCoreApplication.translate("Dialog", u"Guardar", None))
+        self.checkBox.setText(QCoreApplication.translate("Dialog", u"Activo", None))
+        self.label.setText(QCoreApplication.translate("Dialog", u"Direccion", None))
     # retranslateUi
 

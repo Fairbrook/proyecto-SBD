@@ -13,11 +13,13 @@ class SucursalWindow(QDialog):
 
         self.ui.push_cancelar.clicked.connect(self.onClose)
         self.ui.push_guardar.clicked.connect(self.onSave)
+        self.ui.checkBox.setChecked(True)
 
         if sucursal is not None:
             self.ui.edit_nombre.setText(sucursal['nombre'])
             self.ui.edit_telefono.setText(sucursal['telefono'])
             self.ui.edit_direccion.setText(sucursal['direccion'])
+            self.ui.checkBox.setChecked(sucursal['activo'])
 
     @Slot()
     def onClose(self):
@@ -28,10 +30,12 @@ class SucursalWindow(QDialog):
         nombre = self.ui.edit_nombre.text()
         telefono = self.ui.edit_telefono.text()
         direccion = self.ui.edit_direccion.text()
+        activo = self.ui.checkBox.isChecked()
         sucursal = Sucursal(
             nombre=nombre,
             telefono=telefono,
             direccion=direccion,
+            activo=activo
         )
         if self.sucursal is None:
             sucursal.save()

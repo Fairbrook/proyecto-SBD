@@ -42,6 +42,9 @@ class Ui_Dialog(object):
         self.label_4 = QLabel(Dialog)
         self.label_4.setObjectName(u"label_4")
         self.label_4.setGeometry(QRect(22, 64, 52, 20))
+        self.checkBox = QCheckBox(Dialog)
+        self.checkBox.setObjectName(u"checkBox")
+        self.checkBox.setGeometry(QRect(80, 100, 70, 17))
 
         self.retranslateUi(Dialog)
 
@@ -55,5 +58,6 @@ class Ui_Dialog(object):
         self.label_2.setText(QCoreApplication.translate("Dialog", u"Nombre", None))
         self.label_3.setText(QCoreApplication.translate("Dialog", u"Telefono", None))
         self.label_4.setText(QCoreApplication.translate("Dialog", u"Direccion", None))
+        self.checkBox.setText(QCoreApplication.translate("Dialog", u"Activo", None))
     # retranslateUi
 

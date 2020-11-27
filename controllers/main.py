@@ -82,17 +82,16 @@ class MainWindow(QMainWindow):
         self.ui.push_sucursal_mostrar.clicked.connect(self.onSucursalMostrar)
         self.ui.push_sucursal_eliminar.clicked.connect(self.onSucursalEliminar)
         self.ui.push_sucursal_buscar.clicked.connect(self.onSucursalBuscar)
-
-        self.ui.push_gerente_nuevo.clicked.connect(self.onSupervisorNuevo)
-        self.ui.push_gerente_mostrar.clicked.connect(self.onSupervisorMostrar)
-        self.ui.push_gerente_eliminar.clicked.connect(
-            self.onSupervisorEliminar)
-        self.ui.push_gerente_buscar.clicked.connect(self.onSupervisorBuscar)
+        self.ui.push_sucursal_inactiva.clicked.connect(self.onSucursalInactiva)
 
         self.ui.push_empleado_nuevo.clicked.connect(self.onEmpleadoNuevo)
         self.ui.push_empleado_mostrar.clicked.connect(self.onEmpleadoMostrar)
         self.ui.push_empleado_eliminar.clicked.connect(self.onEmpleadoEliminar)
         self.ui.push_empleado_buscar.clicked.connect(self.onEmpleadoBuscar)
+        self.ui.push_supervisor_mostrar.clicked.connect(
+            self.onSupervisorMostrar)
+        self.ui.push_empleado_inactivos.clicked.connect(
+            self.onEmpleadoInactivo)
 
         self.ui.push_venta_nuevo.clicked.connect(self.onVentaNuevo)
         self.ui.push_venta_mostrar.clicked.connect(self.onVentaMostrar)
@@ -109,7 +108,6 @@ class MainWindow(QMainWindow):
         self.ui.table_editorial.doubleClicked.connect(self.onEditorialEdit)
         self.ui.table_existencia.doubleClicked.connect(self.onExistenciaEdit)
         self.ui.table_empleado.doubleClicked.connect(self.onEmpleadoEdit)
-        self.ui.table_gerente.doubleClicked.connect(self.onGerenteEdit)
         self.ui.table_sucursal.doubleClicked.connect(self.onSucursalEdit)
 
         # no edit
@@ -121,7 +119,6 @@ class MainWindow(QMainWindow):
             QAbstractItemView.NoEditTriggers)
         self.ui.table_empleado.setEditTriggers(
             QAbstractItemView.NoEditTriggers)
-        self.ui.table_gerente.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.ui.table_sucursal.setEditTriggers(
             QAbstractItemView.NoEditTriggers)
 
@@ -129,41 +126,57 @@ class MainWindow(QMainWindow):
         self.ui.table_autor.itemChanged.connect(self.onAutorChange)
         self.ui.table_genero.itemChanged.connect(self.onGeneroChange)
 
+        self.onEditorialMostrar()
+        self.onLibroMostrar()
+        self.onExistenciaMostrar()
+        self.onAutorMostrar()
+        self.onEmpleadoMostrar()
+        self.onGeneroMostrar()
+        self.onVentaMostrar()
+        self.onSucursalMostrar()
+
     # Nuevo
     @Slot()
     def onEditorialNuevo(self):
         editorial = EditorialWindow()
         editorial.exec_()
+        self.onEditorialMostrar()
 
     @Slot()
     def onLibroNuevo(self):
         libro = LibroWindow()
         libro.exec_()
+        self.onLibroMostrar()
 
     @Slot()
     def onSucursalNuevo(self):
         sucursal = SucursalWindow()
         sucursal.exec_()
+        self.onSucursalMostrar()
 
     @Slot()
     def onSupervisorNuevo(self):
         supervisor = SupervisorWindow()
         supervisor.exec_()
+        self.onSupervisorMostrar()
 
     @Slot()
     def onEmpleadoNuevo(self):
         empleado = EmpleadoWindow()
         empleado.exec_()
+        self.onEmpleadoMostrar()
 
     @Slot()
     def onVentaNuevo(self):
         venta = VentaWindow()
         venta.exec_()
+        self.onVentaMostrar()
 
     @Slot()
     def onExistenciaNuevo(self):
         venta = ExistenciaWindow()
         venta.exec_()
+        self.onExistenciaMostrar()
 
     @Slot()
     def onGeneroGuardar(self):
@@ -171,6 +184,7 @@ class MainWindow(QMainWindow):
         cat = Genero(tipo)
         cat.save()
         self.ui.edit_genero_nuevo.clear()
+        self.onGeneroMostrar()
 
     @Slot()
     def onAutorGuardar(self):
@@ -178,6 +192,7 @@ class MainWindow(QMainWindow):
         autor = Autor(nombre)
         autor.save()
         self.ui.edit_autor_guardar.clear()
+        self.onAutorMostrar()
 
     # mostrar
     @Slot()
@@ -266,6 +281,12 @@ class MainWindow(QMainWindow):
         self.sucursales = all
         self.setSucursales()
 
+    @Slot()
+    def onSucursalInactiva(self):
+        all = self.sucursal.getInactivos()
+        self.sucursales = all
+        self.setSucursales()
+
     def setSucursales(self):
         headers = ['Nombre', 'Direccion', 'Telefono']
         self.ui.table_sucursal.setRowCount(len(self.sucursales))
@@ -282,21 +303,8 @@ class MainWindow(QMainWindow):
     @Slot()
     def onSupervisorMostrar(self):
         all = self.supervisor.getAll()
-        self.supervisores = all
-        self.setSupervisores()
-
-    def setSupervisores(self):
-        headers = ['Código', 'Nombre', 'Telefono']
-        self.ui.table_gerente.setRowCount(len(self.supervisores))
-        self.ui.table_gerente.setColumnCount(len(headers))
-        self.ui.table_gerente.setHorizontalHeaderLabels(headers)
-        for row, gerente in enumerate(self.supervisores):
-            self.ui.table_gerente.setItem(
-                row, 0, QTableWidgetItem(str(gerente['codigo'])))
-            self.ui.table_gerente.setItem(
-                row, 1, QTableWidgetItem(gerente['nombre']))
-            self.ui.table_gerente.setItem(
-                row, 2, QTableWidgetItem(gerente['telefono']))
+        self.empleados = all
+        self.setEmpleados()
 
     @Slot()
     def onEmpleadoMostrar(self):
@@ -304,9 +312,15 @@ class MainWindow(QMainWindow):
         self.empleados = all
         self.setEmpleados()
 
+    @Slot()
+    def onEmpleadoInactivo(self):
+        all = self.empleado.getInactivos()
+        self.empleados = all
+        self.setEmpleados()
+
     def setEmpleados(self):
         headers = ['Código', 'Nombre', 'Telefono',
-                   'Tipo', 'Supervisor', 'Sucursal']
+                   'Tipo', 'Supervisor', 'Direccion', 'Sucursal']
         self.ui.table_empleado.setRowCount(len(self.empleados))
         self.ui.table_empleado.setColumnCount(len(headers))
         self.ui.table_empleado.setHorizontalHeaderLabels(headers)
@@ -322,7 +336,9 @@ class MainWindow(QMainWindow):
             self.ui.table_empleado.setItem(
                 row, 4, QTableWidgetItem(empleado['supervisor']))
             self.ui.table_empleado.setItem(
-                row, 5, QTableWidgetItem(empleado['sucursal']))
+                row, 5, QTableWidgetItem(empleado['direccion']))
+            self.ui.table_empleado.setItem(
+                row, 6, QTableWidgetItem(empleado['sucursal']))
 
     @Slot()
     def onVentaMostrar(self):
@@ -382,12 +398,6 @@ class MainWindow(QMainWindow):
         window = ExistenciaWindow(self.existencias[item.row()])
         window.exec_()
         self.onExistenciaMostrar()
-
-    @Slot()
-    def onGerenteEdit(self, item):
-        window = SupervisorWindow(self.supervisores[item.row()])
-        window.exec_()
-        self.onSupervisorMostrar()
 
     @Slot()
     def onAutorChange(self, item):
@@ -506,21 +516,6 @@ class MainWindow(QMainWindow):
                 )
         self.onEmpleadoMostrar()
 
-    @Slot()
-    def onSupervisorEliminar(self):
-        for item in self.ui.table_gerente.selectedIndexes():
-            supervisor = Supervisor()
-            supervisor.codigo = self.supervisores[item.row()]['codigo']
-            try:
-                supervisor.delete()
-            except ForeignKeyViolation:
-                QMessageBox.warning(
-                    self,
-                    "Atención",
-                    f'El supervisor "{supervisor.codigo}" no puede eliminarse'
-                )
-            self.onSupervisorMostrar()
-
     # Buscar
     @Slot()
     def onVentaBuscar(self):
@@ -548,7 +543,7 @@ class MainWindow(QMainWindow):
     def onEditorialBuscar(self):
         self.editoriales = self.editorial.search(
             self.ui.edit_editorial_buscar.text())
-        self.setAutores()
+        self.setEditoriales()
 
     @Slot()
     def onLibroBuscar(self):
@@ -560,12 +555,6 @@ class MainWindow(QMainWindow):
         self.sucursales = self.sucursal.search(
             self.ui.edit_sucursal_buscar.text())
         self.setSucursales()
-
-    @Slot()
-    def onSupervisorBuscar(self):
-        self.supervisores = self.supervisor.search(
-            self.ui.edit_gerente_buscar.text())
-        self.setSupervisores()
 
     @Slot()
     def onEmpleadoBuscar(self):
@@ -589,6 +578,7 @@ class MainWindow(QMainWindow):
     def closeEvent(self, event):
         self.exit = True
         if self.canExit == True:
+            self.thread.terminate()
             event.accept()
         else:
             event.ignore()

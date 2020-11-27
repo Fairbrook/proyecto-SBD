@@ -30,6 +30,20 @@ class Ui_Dialog(object):
 
         self.formLayout.setWidget(0, QFormLayout.FieldRole, self.edit_nombre)
 
+        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+
+        self.formLayout.setItem(4, QFormLayout.LabelRole, self.verticalSpacer)
+
+        self.push_cancelar = QPushButton(Dialog)
+        self.push_cancelar.setObjectName(u"push_cancelar")
+
+        self.formLayout.setWidget(5, QFormLayout.SpanningRole, self.push_cancelar)
+
+        self.push_guardar = QPushButton(Dialog)
+        self.push_guardar.setObjectName(u"push_guardar")
+
+        self.formLayout.setWidget(6, QFormLayout.SpanningRole, self.push_guardar)
+
         self.label_3 = QLabel(Dialog)
         self.label_3.setObjectName(u"label_3")
 
@@ -40,19 +54,25 @@ class Ui_Dialog(object):
 
         self.formLayout.setWidget(1, QFormLayout.FieldRole, self.edit_pais)
 
-        self.push_cancelar = QPushButton(Dialog)
-        self.push_cancelar.setObjectName(u"push_cancelar")
+        self.lineEdit = QLineEdit(Dialog)
+        self.lineEdit.setObjectName(u"lineEdit")
 
-        self.formLayout.setWidget(3, QFormLayout.SpanningRole, self.push_cancelar)
+        self.formLayout.setWidget(2, QFormLayout.FieldRole, self.lineEdit)
 
-        self.push_guardar = QPushButton(Dialog)
-        self.push_guardar.setObjectName(u"push_guardar")
+        self.label = QLabel(Dialog)
+        self.label.setObjectName(u"label")
 
-        self.formLayout.setWidget(4, QFormLayout.SpanningRole, self.push_guardar)
+        self.formLayout.setWidget(2, QFormLayout.LabelRole, self.label)
 
-        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+        self.label_4 = QLabel(Dialog)
+        self.label_4.setObjectName(u"label_4")
 
-        self.formLayout.setItem(2, QFormLayout.LabelRole, self.verticalSpacer)
+        self.formLayout.setWidget(3, QFormLayout.LabelRole, self.label_4)
+
+        self.lineEdit_2 = QLineEdit(Dialog)
+        self.lineEdit_2.setObjectName(u"lineEdit_2")
+
+        self.formLayout.setWidget(3, QFormLayout.FieldRole, self.lineEdit_2)
 
 
         self.retranslateUi(Dialog)
@@ -63,8 +83,10 @@ class Ui_Dialog(object):
     def retranslateUi(self, Dialog):
         Dialog.setWindowTitle(QCoreApplication.translate("Dialog", u"Editorial", None))
         self.label_2.setText(QCoreApplication.translate("Dialog", u"Nombre", None))
-        self.label_3.setText(QCoreApplication.translate("Dialog", u"Pais origen", None))
         self.push_cancelar.setText(QCoreApplication.translate("Dialog", u"Cancelar", None))
         self.push_guardar.setText(QCoreApplication.translate("Dialog", u"Guardar", None))
+        self.label_3.setText(QCoreApplication.translate("Dialog", u"Pais origen", None))
+        self.label.setText(QCoreApplication.translate("Dialog", u"Direccion", None))
+        self.label_4.setText(QCoreApplication.translate("Dialog", u"Telefono", None))
     # retranslateUi
 
