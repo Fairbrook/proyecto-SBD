@@ -82,6 +82,6 @@ class Empleado:
             empleado.supervisor as supervisor_id,
             empleado.activo as activo,
             empleado.direccion as direccion
-            from empleado inner join empleado as supervisor on empleado.supervisor = supervisor.codigo
+            from empleado left join empleado as supervisor on empleado.supervisor = supervisor.codigo
             where upper(empleado.nombre) like upper(%s);
             """, (f'%{nombre}%',))

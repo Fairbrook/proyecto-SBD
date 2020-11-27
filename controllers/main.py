@@ -320,7 +320,7 @@ class MainWindow(QMainWindow):
 
     def setEmpleados(self):
         headers = ['Código', 'Nombre', 'Telefono',
-                   'Tipo', 'Supervisor', 'Direccion', 'Sucursal']
+                   'Tipo', 'Supervisor', 'Direccion', 'Sucursal', 'Activo']
         self.ui.table_empleado.setRowCount(len(self.empleados))
         self.ui.table_empleado.setColumnCount(len(headers))
         self.ui.table_empleado.setHorizontalHeaderLabels(headers)
@@ -339,6 +339,8 @@ class MainWindow(QMainWindow):
                 row, 5, QTableWidgetItem(empleado['direccion']))
             self.ui.table_empleado.setItem(
                 row, 6, QTableWidgetItem(empleado['sucursal']))
+            self.ui.table_empleado.setItem(
+                row, 7, QTableWidgetItem(str(empleado['activo'])))
 
     @Slot()
     def onVentaMostrar(self):
@@ -562,6 +564,7 @@ class MainWindow(QMainWindow):
             self.ui.edit_empleado_buscar.text())
         self.setEmpleados()
 
+    #notify
     @Slot(str)
     def onNotify(self, data):
         QMessageBox.warning(
