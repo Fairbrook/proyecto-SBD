@@ -9,6 +9,7 @@ from .supervisor import SupervisorWindow
 from .empleado import EmpleadoWindow
 from .venta import VentaWindow
 from .existencia import ExistenciaWindow
+from .venta_detalles import VentaDetallesWindow
 from models.editorial import Editorial
 from models.categoria import Genero
 from models.autor import Autor
@@ -109,15 +110,17 @@ class MainWindow(QMainWindow):
         self.ui.table_existencia.doubleClicked.connect(self.onExistenciaEdit)
         self.ui.table_empleado.doubleClicked.connect(self.onEmpleadoEdit)
         self.ui.table_sucursal.doubleClicked.connect(self.onSucursalEdit)
+        self.ui.table_venta.doubleClicked.connect(self.onVentaEdit)
 
         # no edit
         self.ui.table_editorial.setEditTriggers(
             QAbstractItemView.NoEditTriggers)
         self.ui.table_libro.setEditTriggers(QAbstractItemView.NoEditTriggers)
-        self.ui.table_venta.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.ui.table_existencia.setEditTriggers(
             QAbstractItemView.NoEditTriggers)
         self.ui.table_empleado.setEditTriggers(
+            QAbstractItemView.NoEditTriggers)
+        self.ui.table_venta.setEditTriggers(
             QAbstractItemView.NoEditTriggers)
         self.ui.table_sucursal.setEditTriggers(
             QAbstractItemView.NoEditTriggers)
@@ -388,6 +391,11 @@ class MainWindow(QMainWindow):
         window = LibroWindow(self.libros[item.row()])
         window.exec_()
         self.onLibroMostrar()
+
+    @Slot()
+    def onVentaEdit(self, item):
+        window = VentaDetallesWindow(self.ventas[item.row()])
+        window.exec_()
 
     @Slot()
     def onEditorialEdit(self, item):

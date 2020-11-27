@@ -14,3 +14,13 @@ class LibroCompra:
 
     def getAll(self):
         return self.conn.query('select * from compra;')
+
+    def getByCompra(self, compra):
+        return self.conn.query("""
+         select 
+        libro.titulo as libro,
+        libro_compra.cantidadlibros as cantidad,
+        libro.precio * libro_compra.cantidadlibros as subtotal
+        from libro_compra
+        inner join libro on libro_compra.libro = libro.codigo
+        where compra = %s;""", (compra,))
