@@ -40,7 +40,7 @@ class EmpleadoWindow(QDialog):
             self.ui.combo_tipo.setCurrentText(empleado['tipo'])
             self.ui.combo_sucursal.setCurrentText(empleado['sucursal'])
             index = self.ui.combo_supervisor.findData(empleado['supervisor_id'])
-            self.ui.combo_sucursal.setCurrentIndex(index)
+            self.ui.combo_supervisor.setCurrentIndex(index)
             self.ui.checkBox.setChecked(empleado['activo'])
             self.ui.edit_direccion.setText(empleado['direccion'])
 
@@ -69,7 +69,15 @@ class EmpleadoWindow(QDialog):
         tipo = self.ui.combo_tipo.currentText()
         activo = self.ui.checkBox.isChecked()
         direccion = self.ui.edit_direccion.text()
-        empleado = Empleado(nombre=nombre, telefono=telefono, supervisor=supervisor, sucursal=sucursal, tipo=tipo, activo = activo, direccion=direccion)
+        empleado = Empleado(
+            nombre=nombre, 
+            telefono=telefono, 
+            supervisor=supervisor, 
+            sucursal=sucursal, 
+            tipo=tipo, 
+            activo = activo, 
+            direccion=direccion
+            )
         if self.empleado is None:
             empleado.save()
         else:
