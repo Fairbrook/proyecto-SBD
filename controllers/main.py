@@ -71,7 +71,7 @@ class MainWindow(QMainWindow):
 
         self.ui.push_autor_mostrar.clicked.connect(self.onAutorMostrar)
         self.ui.push_autor_guardar.clicked.connect(self.onAutorGuardar)
-        self.ui.push_autor_eliminar.clicked.connect(self.onAutorMostrar)
+        self.ui.push_autor_eliminar.clicked.connect(self.onAutorEliminar)
         self.ui.push_autor_buscar.clicked.connect(self.onAutorBuscar)
 
         self.ui.push_libro_nuevo.clicked.connect(self.onLibroNuevo)
