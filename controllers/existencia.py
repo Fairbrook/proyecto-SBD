@@ -44,6 +44,7 @@ class ExistenciaWindow(QDialog):
         registro = LibroSucursal( sucursal=sucursal, libro=libro, existencia=cantidad)
         if self.existencia is not None:
             registro._key[0]=self.existencia['libro_id']
+            registro._key[1]=self.existencia['sucursal']
             registro.update()
         else:
             registro.save()
